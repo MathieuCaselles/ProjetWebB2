@@ -10,6 +10,7 @@ Il s’agit d’un site e-Commerce de vente de produit alimentaires. Les utilisa
 Lorsqu’un utilisateur en achète un, il recevra un email avec une facture en PDF. Cette facture se
 retrouvera également dans son espace membre sur le site.   
 Il y a aussi des revendeurs qui peuvent gérer leur propre page de vente.  
+Ces revendeurs servent à avoir des points de vente un peu partout pour ceux qui ne veulent pas acheter en ligne.  
 Il est possible de réserver des produits en lignes et d'aller les chercher et payer directement chez les revendeurs.  
 Un membre ne peut acheter un produit que s’il dispose d’un solde suffisant. Également, les produits ont une quantité définie, il faudra
 vérifier le stock avant d’autoriser un achat.  
@@ -40,7 +41,7 @@ L'administration se composera obligatoirement des pages suivantes :
 
 #### Partie publique
 * la page d’accueil :
-    * Présentation de notre "entreprise" de ventes de produits alimentaire
+    * Présentation "Qui somme nous ?"
     * Liste des produits alimentaires;
 * La page de boutique
     * liste de tous les produits disponibles avec un système de pagination / difficulté : 3
