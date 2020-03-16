@@ -1,19 +1,7 @@
 document.addEventListener("DOMContentLoaded", event => {
 
-    //const app = firebase.app();
-    //console.log(app);
-
-    const db = firebase.firestore();
-    const myPost = db.collection('posts').doc('firstpost');
-
-    myPost.get()
-        .then(doc => {
-
-            const data = doc.data();
-            document.write(data.title + `<br>`);
-            document.write(data.createdAt);
-        })
-
+    const app = firebase.app();
+    console.log(app);
 });
 
 
@@ -24,7 +12,7 @@ function googleLogin() {
 
         .then(result => {
             const user = result.user;
-            document.write(`Hello ${user.displayName}`);
+            document.getElementById("login").innerText = `Hello ${user.displayName}`;
             console.log(user);
         })
         .catch(console.log)
