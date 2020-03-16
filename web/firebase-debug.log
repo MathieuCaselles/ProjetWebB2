@@ -1,0 +1,25 @@
+[debug] [2020-03-16T11:47:50.684Z] ----------------------------------------------------------------------
+[debug] [2020-03-16T11:47:50.688Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Notitou\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-03-16T11:47:50.688Z] CLI Version:   7.15.0
+[debug] [2020-03-16T11:47:50.688Z] Platform:      win32
+[debug] [2020-03-16T11:47:50.688Z] Node Version:  v13.7.0
+[debug] [2020-03-16T11:47:50.689Z] Time:          Mon Mar 16 2020 12:47:50 GMT+0100 (heure normale d’Europe centrale)
+[debug] [2020-03-16T11:47:50.689Z] ----------------------------------------------------------------------
+[debug] [2020-03-16T11:47:50.689Z] 
+[debug] [2020-03-16T11:47:50.704Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-16T11:47:50.705Z] > authorizing via signed-in user
+[debug] [2020-03-16T11:47:50.705Z] [iam] checking project apprendrefirebase-c0e3f for permissions ["firebase.projects.get"]
+[debug] [2020-03-16T11:47:50.707Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/apprendrefirebase-c0e3f:testIamPermissions  
+
+[debug] [2020-03-16T11:47:51.472Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-16T11:47:51.474Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/apprendrefirebase-c0e3f  
+ 
+[debug] [2020-03-16T11:47:51.700Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\Notitou\Desktop\Cours\ProjetWebB2\web'...
+[info] 
+[debug] [2020-03-16T11:47:51.703Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/apprendrefirebase-c0e3f/webApps/-/config  
+ 
+[debug] [2020-03-16T11:47:52.219Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
