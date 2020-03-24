@@ -2,7 +2,7 @@
   <div id="app">
     <nav id="nav">
       <div class="nav-wrapper green app">
-        <a href="#" class="brand-logo green">Shop Project</a>
+        <router-link to="/" class="brand-logo green">Shop Project</router-link>
         <ul id="nav-mobile" class="right hide-on-med-and-down green darken-2">
           <li>
             <router-link class="waves-effect waves-light btn green" to="/">
