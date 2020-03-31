@@ -11,7 +11,7 @@
             </router-link>
           </li>
           <li>
-            <router-link class="waves-effect waves-light btn green" to="/about">
+            <router-link class="waves-effect waves-light btn green" to="/boutique">
               Boutique
               <i class="material-icons right">shopping_cart</i>
             </router-link>
