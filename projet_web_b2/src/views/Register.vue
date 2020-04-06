@@ -13,6 +13,7 @@
     </form>
   </div>
 </template>
+
 <script>
 const firebase = require("../firebase.js");
 export default {
