@@ -12,12 +12,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/register',
-    name: 'Register',
+    path: '/authentification',
+    name: 'Authentification',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/Register.vue')
+    component: () => import('../views/Authentification.vue')
   },
   {
     path: '/boutique',
@@ -53,7 +53,7 @@ router.beforeEach((to, from, next) => {
   console.log(currentUser)
 
   if (requiresAuth && !currentUser) {
-    next('/register')
+    next('/authentification')
   } else if (requiresAuth && currentUser) {
     next()
   } else {

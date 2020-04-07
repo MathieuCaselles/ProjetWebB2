@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <nav id="nav">
+  <div id="div-navbar">
+    <nav id="navbar">
       <div class="nav-wrapper green app">
         <router-link to="/" class="brand-logo green">Shop Project</router-link>
         <ul id="nav-mobile" class="right hide-on-med-and-down green darken-2">
@@ -16,15 +16,58 @@
               <i class="material-icons right">shopping_cart</i>
             </router-link>
           </li>
-          <li>
-            <router-link class="waves-effect waves-light btn green" to="/register">
-              Login
+          <li v-if="!getUserStore">
+            <router-link class="waves-effect waves-light btn green" to="/authentification">
+              S'authentifier
               <i class="material-icons right">account_circle</i>
             </router-link>
+          </li>
+          <li v-else>
+            <button @click="logout" class="waves-effect waves-light btn green">Deconnexion</button>
           </li>
         </ul>
       </div>
     </nav>
     <router-view />
+    <Footer id="bottom" />
   </div>
 </template>
+
+<script>
+import Footer from "@/components/Footer.vue";
+
+const firebase = require("./firebase.js");
+export default {
+  components: {
+    Footer
+  },
+  computed: {
+    getUserStore() {
+      return this.$store.state.currentUser;
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.scrollToEnd();
+    });
+  },
+  methods: {
+    logout() {
+      firebase.auth
+        .signOut()
+        .then(() => {
+          this.$store.commit("setCurrentUser", null);
+          console.log("Dexonnexion reussis");
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+
+    scrollToEnd: function() {
+      var messages = this.$el.querySelector("#bottom");
+      messages.scrollTop = messages.scrollHeight;
+    }
+  }
+};
+</script>
