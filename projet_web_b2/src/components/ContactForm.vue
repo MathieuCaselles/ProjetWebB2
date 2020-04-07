@@ -36,10 +36,23 @@
     </div>
 </template>
 
+
 <script>
 export default {
   name: 'Contact',
   props: {
-  }
+  }, 
+  methods: {
+    changedValue: function(o){
+        o.style.height = "1px";
+        o.style.height = (25+o.scrollHeight)+"px";
+    }
+}
+
 }
 </script>
+<style>
+textarea {
+    height: 20rem !important;
+}
+</style>
