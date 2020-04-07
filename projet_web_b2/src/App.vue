@@ -29,17 +29,27 @@
       </div>
     </nav>
     <router-view />
+    <Footer id="bottom" />
   </div>
 </template>
 
-
 <script>
+import Footer from "@/components/Footer.vue";
+
 const firebase = require("./firebase.js");
 export default {
+  components: {
+    Footer
+  },
   computed: {
     getUserStore() {
       return this.$store.state.currentUser;
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.scrollToEnd();
+    });
   },
   methods: {
     logout() {
@@ -52,6 +62,11 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+
+    scrollToEnd: function() {
+      var messages = this.$el.querySelector("#bottom");
+      messages.scrollTop = messages.scrollHeight;
     }
   }
 };

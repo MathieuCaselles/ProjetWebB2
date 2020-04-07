@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Yo"/>
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Yo" />
   </div>
 </template>
 
@@ -17,8 +17,6 @@ Vue.component("button-counter", {
   template:
     '<button v-on:click="count++">Vous m\'avez cliqué {{ count }} fois.</button>'
 });
-
-new Vue({ el: "#components-demo" });
 
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
