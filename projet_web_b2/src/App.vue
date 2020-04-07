@@ -16,6 +16,12 @@
               <i class="material-icons right">shopping_cart</i>
             </router-link>
           </li>
+          <li>
+            <router-link class="waves-effect waves-light btn green" to="/contact">
+              Contact
+              <i class="material-icons right">phone</i>
+            </router-link>
+          </li>
           <li v-if="!getUserStore">
             <router-link class="waves-effect waves-light btn green" to="/authentification">
               S'authentifier
