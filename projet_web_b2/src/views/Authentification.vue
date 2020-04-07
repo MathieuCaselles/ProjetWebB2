@@ -35,7 +35,7 @@
         <input
           v-model.trim="password_register"
           type="password"
-          placeholder="mot de pass"
+          placeholder="Mot de passe"
           id="password-register"
         />
 

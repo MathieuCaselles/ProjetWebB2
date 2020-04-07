@@ -52,11 +52,6 @@ export default {
       return this.$store.state.currentUser;
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.scrollToEnd();
-    });
-  },
   methods: {
     logout() {
       firebase.auth
@@ -68,11 +63,6 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    },
-
-    scrollToEnd: function() {
-      var messages = this.$el.querySelector("#bottom");
-      messages.scrollTop = messages.scrollHeight;
     }
   }
 };
