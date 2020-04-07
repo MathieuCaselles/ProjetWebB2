@@ -1,10 +1,11 @@
 <template>
 <div id='app'>
-<div class="row" id="app">
+<div class="row">
     <Product
-    v-for="(heroe, index) in heroes"
+    v-for="(product, index) in products"
     v-bind:key="index"
-    v-bind:heroeName= heroe.name
+    v-bind:productName= product.name
+    v-bind:product= product
     v-show="setPaginate(index)"/>
 </div>
 <div id="pagination">
@@ -16,7 +17,6 @@
            v-bind:id="page_index"
            v-bind:page_index="page_index"
            v-bind:current="current"
-           
            />
       </ul>
 </div>
@@ -34,12 +34,12 @@ export default {
     Paginationboutique
   },
   created() {
-      this.paginate_total = Math.ceil(this.heroes.length/this.paginate);
+      this.paginate_total = Math.ceil(this.products.length/this.paginate);
       },
   data(){
       return {
         current: 1,
-          heroes: [
+          products: [
             { name: 'Wolverine', universe: 'Marvel'},
             { name: 'Batman', universe: 'DC' },
             { name: 'Beast', universe: 'Marvel'},
@@ -63,6 +63,7 @@ export default {
         ],
         paginate: 3,
         paginate_total: 0,
+        isOk: false
     }
   },
   methods: {
