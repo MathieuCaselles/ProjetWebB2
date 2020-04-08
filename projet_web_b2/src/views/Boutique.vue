@@ -41,6 +41,7 @@ export default {
   mounted: function() {
     this.$nextTick(function() {
       this.$store.commit("updateProduits");
+      this.updateCurrent(0);
     });
   },
   data() {
@@ -81,13 +82,13 @@ export default {
   },
   methods: {
     setPaginate: function(i) {
-      this.current = 1;
-      if (this.current == 1) {
+      const currentPage = this.$store.state.indexPagination + 1;
+      if (currentPage == 1) {
         return i < this.paginate;
       } else {
         return (
-          i >= this.paginate * (this.current - 1) &&
-          i < this.current * this.paginate
+          i >= this.paginate * (currentPage - 1) &&
+          i < currentPage * this.paginate
         );
       }
     },
@@ -107,7 +108,7 @@ export default {
       const currentPage = this.$store.state.indexPagination;
       this.$refs.indexPage.children[currentPage].className = "waves-effect";
       this.$store.commit("setIndexPagination", i);
-      this.$refs.indexPage.children[i].className = "active";
+      this.$refs.indexPage.children[i].className = "active green";
     }
   }
 };
