@@ -18,6 +18,7 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 const auth = firebase.auth()
 const currentUser = auth.currentUser
+const productsRef = db.collection("produits");
 
 // date issue fix according to firebase
 const settings = {
@@ -28,5 +29,6 @@ db.settings(settings)
 export {
     db,
     auth,
-    currentUser
+    currentUser,
+    productsRef
 }
