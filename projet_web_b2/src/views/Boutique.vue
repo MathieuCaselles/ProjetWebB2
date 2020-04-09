@@ -2,9 +2,9 @@
   <div id="app">
     <div class="row">
       <Product
-        v-for="(product, index) in products"
+        v-for="(product, index) in listeProduits"
         v-bind:key="index"
-        v-bind:productName="product.name"
+        v-bind:productName="product.data.nom"
         v-bind:product="product"
         v-show="setPaginate(index)"
       />
@@ -12,7 +12,7 @@
     <div id="pagination">
       <ul class="pagination center" ref="indexPage">
         <li
-          v-for="index in paginate_total"
+          v-for="index in nbrPageReel"
           v-bind:key="index"
           v-bind:id="index"
           class="waves-effect"
@@ -36,11 +36,10 @@ export default {
     Product
   },
   created() {
-    this.paginate_total = Math.ceil(this.products.length / this.paginate);
+    this.$store.commit("updateProduits");
   },
   mounted: function() {
     this.$nextTick(function() {
-      this.$store.commit("updateProduits");
       this.updateCurrent(0);
     });
   },
@@ -69,8 +68,8 @@ export default {
         { name: "Hulk", universe: "Marvel" },
         { name: "Shehulk", universe: "Marvel" }
       ],
-      paginate: 3,
-      paginate_total: 0,
+      paginate: 4,
+      paginate_total: 1,
       isOk: false
     };
   },
@@ -78,6 +77,9 @@ export default {
     // get only
     listeProduits: function() {
       return this.$store.state.produits;
+    },
+    nbrPageReel: function() {
+      return Math.ceil(this.listeProduits.length / this.paginate);
     }
   },
   methods: {

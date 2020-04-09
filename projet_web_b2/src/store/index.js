@@ -26,11 +26,12 @@ const store = new Vuex.Store({
       state.indexPagination = val;
     },
     updateProduits(state) {
-      state.produits = []
+      let listeProduits = []
       firebase.db.collection("produits").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          state.produits.push({ id: doc.id, data: doc.data() })
+          listeProduits.push({ id: doc.id, data: doc.data() })
         });
+        state.produits = listeProduits;
       });
     }
   },
