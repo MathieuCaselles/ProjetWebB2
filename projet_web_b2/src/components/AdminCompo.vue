@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="card-action">
-                    <button class="btn waves-effect waves-light" @click="submitProduct()">Submit
+                    <button class="btn waves-effect waves-light" @click="addProduct()">Submit
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
@@ -37,14 +37,15 @@
         </div>
     </div>
     <div class="row">
-    <div class="col s3 m3" v-for="(product, index) in products" v-bind:key="index">
+    <div class="col s2 m2" v-for="(product, index) in products" v-bind:key="index">
       <div class="card card-product">
         <div class="card-image">
           <img v-bind:src="product.data().image">
-          <span class="card-title black-text">{{ product.data().nom }}</span>
+          <span class="card-title black-text">{{ product.data().nom }} / {{ product.data().type }}</span>
         </div>
-        <div class="card-content">
-          {{ product.data().type }}
+        <div class="card-content card-content-product">
+          
+          <p>{{ product.data().description }}</p>
         </div>
         <div class="card-action">
           <button class="btn waves-effect waves-light" @click="deleteProduct(product.id)">Delete<i class="material-icons right">delete</i></button>
@@ -80,9 +81,10 @@ export default {
             })
         })
         },
-        submitProduct(){
+        addProduct(){
             productsRef.add({nom: this.product.name, type: this.product.type, description: this.product.description, image: this.product.image});
             this.readData();
+            this.resetEntries();
         },
         deleteProduct(doc){
             if(confirm("Voulez-vous vraiment supprimer ce produit ?")){
@@ -93,6 +95,12 @@ export default {
                 });
             }
             this.readData();
+        },
+        resetEntries(){
+            this.product.name = ""
+            this.product.type = ""
+            this.product.image = ""
+            this.product.description = ""
         }
     },
     created(){
@@ -104,7 +112,13 @@ export default {
 textarea {
     height: 8rem !important;
 }
-.card-product {
- width:400px;
+
+.card .card-image img{
+    height: 200px;
+}
+
+.card .card-content-product {
+    height: 300px;
+    overflow: auto;
 }
 </style>
