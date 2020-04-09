@@ -42,31 +42,9 @@ export default {
   data() {
     return {
       current: 1,
-      products: [
-        { name: "Wolverine", universe: "Marvel" },
-        { name: "Batman", universe: "DC" },
-        { name: "Beast", universe: "Marvel" },
-        { name: "Superman", universe: "DC" },
-        { name: "Wonder Woman", universe: "DC" },
-        { name: "Iceman", universe: "Marvel" },
-        { name: "Black Panther", universe: "Marvel" },
-        { name: "Beast Boy", universe: "DC" },
-        { name: "Captain America", universe: "Marvel" },
-        { name: "Hawkgirl", universe: "DC" },
-        { name: "Cyclops", universe: "Marvel" },
-        { name: "Green Lantern", universe: "DC" },
-        { name: "Thor", universe: "Marvel" },
-        { name: "Flash", universe: "DC" },
-        { name: "Spider-man", universe: "Marvel" },
-        { name: "Martian Manhunter", universe: "DC" },
-        { name: "Nightwing", universe: "DC" },
-        { name: "Raven", universe: "DC" },
-        { name: "Hulk", universe: "Marvel" },
-        { name: "Shehulk", universe: "Marvel" }
-      ],
+      products: [],
       paginate: 6,
       paginate_total: 1,
-      isOk: false
     };
   },
   computed: {
@@ -92,17 +70,6 @@ export default {
           i < currentPage * this.paginate
         );
       }
-    },
-
-    logProduit: function() {
-      this.listeProduits.forEach(element => {
-        console.log(element.id);
-        console.log(element.data.nom);
-        console.log(element.data.type);
-        console.log(element.data.description);
-        console.log(element.data.image);
-      });
-      console.log(this.listeProduits);
     },
 
     updateCurrent: function(i) {
