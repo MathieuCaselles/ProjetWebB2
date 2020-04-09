@@ -68,7 +68,7 @@ export default {
         { name: "Hulk", universe: "Marvel" },
         { name: "Shehulk", universe: "Marvel" }
       ],
-      paginate: 4,
+      paginate: 3,
       paginate_total: 1,
       isOk: false
     };
