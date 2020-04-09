@@ -1,5 +1,5 @@
 <template>
-  <div class="col s6 m4 l3">
+  <div class="col s6 m4 l3 xl2">
     <div class="card card-product small">
       <div class="card-image">
         <img :src="product.data.image" />
@@ -32,6 +32,6 @@ export default {
 
 <style>
 .card-product {
-  width: 20em;
+  width: 15em;
 }
 </style>

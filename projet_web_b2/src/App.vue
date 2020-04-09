@@ -11,10 +11,10 @@
             </router-link>
           </li>
           <li>
-            <router-link class="waves-effect waves-light btn green" to="/boutique">
+            <a @click="goToBoutique" class="waves-effect waves-light btn green">
               Boutique
               <i class="material-icons right">shopping_cart</i>
-            </router-link>
+            </a>
           </li>
           <li>
             <router-link class="waves-effect waves-light btn green" to="/contact">
@@ -63,6 +63,10 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    goToBoutique() {
+      this.$store.commit("setIndexPagination", 0);
+      this.$router.push("/boutique");
     }
   }
 };

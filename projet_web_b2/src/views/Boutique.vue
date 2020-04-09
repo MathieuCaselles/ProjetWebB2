@@ -14,7 +14,7 @@
           v-for="index in nbrPageReel"
           v-bind:key="index"
           v-bind:id="index"
-          class="waves-effect"
+          v-bind:class="index == currentPage ? 'active green' : 'waves-effect'"
           v-bind:current="current"
           @click="updateCurrent(index-1)"
         >
@@ -43,8 +43,8 @@ export default {
     return {
       current: 1,
       products: [],
-      paginate: 6,
-      paginate_total: 1,
+      paginate: 3,
+      paginate_total: 1
     };
   },
   computed: {
@@ -57,36 +57,25 @@ export default {
         return 1;
       }
       return Math.ceil(this.listeProduits.length / this.paginate);
+    },
+    currentPage: function() {
+      return this.$store.state.indexPagination + 1;
     }
   },
   methods: {
     setPaginate: function(i) {
-      const currentPage = this.$store.state.indexPagination + 1;
-      if (currentPage == 1) {
+      if (this.currentPage == 1) {
         return i < this.paginate;
       } else {
         return (
-          i >= this.paginate * (currentPage - 1) &&
-          i < currentPage * this.paginate
+          i >= this.paginate * (this.currentPage - 1) &&
+          i < this.currentPage * this.paginate
         );
       }
     },
 
     updateCurrent: function(i) {
-      const currentPage = this.$store.state.indexPagination;
-      this.$refs.indexPage.children[currentPage].className = "waves-effect";
       this.$store.commit("setIndexPagination", i);
-      this.$refs.indexPage.children[i].className = "active green";
-    },
-
-    firstUpdtatePaginate: function() {
-      if (this.$refs.indexPage == undefined) {
-        setTimeout(() => {
-          return this.firstUpdtatePaginate();
-        }, 10);
-      }
-      const currentPage = this.$store.state.indexPagination;
-      return this.updateCurrent(currentPage);
     }
   }
 };
