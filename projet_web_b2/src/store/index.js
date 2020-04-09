@@ -9,6 +9,8 @@ const vuexLocalStorage = new VuexPersist({
   storage: window.localStorage,
   reducer: state => ({
     currentUser: state.currentUser,
+    productDetail: state.productDetail,
+    indexPagination: state.indexPagination
   })
 })
 
@@ -16,11 +18,15 @@ const store = new Vuex.Store({
   state: {
     currentUser: null,
     produits: null,
-    indexPagination: 1
+    productDetail: null,
+    indexPagination: 0,
   },
   mutations: {
     setCurrentUser(state, val) {
       state.currentUser = val;
+    },
+    setProductDetail(state, val) {
+      state.productDetail = val;
     },
     setIndexPagination(state, val) {
       state.indexPagination = val;

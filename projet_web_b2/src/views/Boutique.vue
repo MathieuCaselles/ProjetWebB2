@@ -4,7 +4,6 @@
       <Product
         v-for="(product, index) in listeProduits"
         v-bind:key="index"
-        v-bind:productName="product.data.nom"
         v-bind:product="product"
         v-show="setPaginate(index)"
       />
@@ -23,7 +22,6 @@
         </li>
       </ul>
     </div>
-    <button @click="updateCurrent(1)">TestProduit</button>
   </div>
 </template>
 
@@ -39,9 +37,7 @@ export default {
     this.$store.commit("updateProduits");
   },
   mounted: function() {
-    this.$nextTick(function() {
-      this.updateCurrent(0);
-    });
+    this.firstUpdtatePaginate();
   },
   data() {
     return {
@@ -68,7 +64,7 @@ export default {
         { name: "Hulk", universe: "Marvel" },
         { name: "Shehulk", universe: "Marvel" }
       ],
-      paginate: 3,
+      paginate: 6,
       paginate_total: 1,
       isOk: false
     };
@@ -79,6 +75,9 @@ export default {
       return this.$store.state.produits;
     },
     nbrPageReel: function() {
+      if (this.listeProduits == null) {
+        return 1;
+      }
       return Math.ceil(this.listeProduits.length / this.paginate);
     }
   },
@@ -111,7 +110,18 @@ export default {
       this.$refs.indexPage.children[currentPage].className = "waves-effect";
       this.$store.commit("setIndexPagination", i);
       this.$refs.indexPage.children[i].className = "active green";
+    },
+
+    firstUpdtatePaginate: function() {
+      if (this.$refs.indexPage == undefined) {
+        setTimeout(() => {
+          return this.firstUpdtatePaginate();
+        }, 10);
+      }
+      const currentPage = this.$store.state.indexPagination;
+      return this.updateCurrent(currentPage);
     }
   }
 };
 </script>
+

@@ -117,8 +117,8 @@ textarea {
     height: 200px;
 }
 
-.card .card-content-product {
-    height: 300px;
-    overflow: auto;
+.card {
+  height: 300px;
+  overflow: auto;
 }
 </style>

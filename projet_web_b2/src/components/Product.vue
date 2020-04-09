@@ -1,31 +1,37 @@
 <template>
-<div class="col s4 m4">
-  <div class="card">
-    <div class="card-image">
-      <img src="https://www.pokebip.com/pokedex-images/artworks/255.png">
-      <span class="card-title">Yes</span>
-    </div>
-    <div class="card-content">
-      <p> {{ productName }} </p>
-    </div>
-    <div class="card-action">
-      <button v-on:click="oui(product.name)">Voir le produit</button>
+  <div class="col s6 m4 l3 xl2">
+    <div class="card card-product small">
+      <div class="card-image">
+        <img :src="product.data.image" />
+        <span class="card-title green">Yes</span>
+      </div>
+      <div class="card-content">
+        <p>{{ product.data.nom}}</p>
+      </div>
+      <div class="card-action">
+        <button v-on:click="oui(product)">Voir le produit</button>
+      </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 export default {
-  name: 'Product',
+  name: "Product",
   props: {
-    productName: String,
     product: Object,
     isOk: Boolean
   },
   methods: {
-    oui: function(product){
-      console.log(product)
+    oui: function(product) {
+      this.$store.commit("setProductDetail", product);
+      this.$router.push("/produit");
     }
   }
-}
+};
 </script>
+
+<style>
+.card-product {
+  width: 20em;
+}
+</style>
