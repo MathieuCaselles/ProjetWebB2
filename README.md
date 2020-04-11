@@ -52,7 +52,7 @@ L'administration se composera obligatoirement des pages suivantes :
         * un prénom
         * un nom
         * une adresse email
-        * une date de naissance
+        * adresse de livraison
         * un solde (factice)
     * fonction de mot de passe oublié
 * la page produit contient : / difficulté : 7
@@ -91,7 +91,7 @@ L'administration se composera obligatoirement des pages suivantes :
         * un prénom
         * un nom
         * une adresse email
-        * une date de naissance
+        * adresse de livraison
     * les administrateurs peuvent consulter :
         * les achats de produits
         * les factures en PDF
