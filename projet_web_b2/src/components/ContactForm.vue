@@ -5,21 +5,27 @@
                 <div class="card-content white-text">
                     <span class="card-title">Nous contacter :</span>
                     <div class="row">
+                        <p v-if="errors.length">
+                            <b>Merci de corriger les erreurs suivante(s):</b>
+                            <ul>
+                                <li v-for="(error,index) in errors" v-bind:key='index' class="red-text">{{ error }}</li>
+                            </ul>
+                        </p>
                         <form class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="name" type="text" class="validate">
+                                <input id="name" type="text" class="validate" v-model="message.fullName" required>
                                 <label class="active" for="name">Nom complet :</label>
                             </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">mail</i>
-                                <input id="mail" type="text">
-                                <label class="active" for="mail">Mail :</label>
+                                <input id="email" type="email" v-model="message.mail"/> 
+                                <label class="active" for="email">Mail :</label>
                             </div>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 inline">
                                 <i class="material-icons prefix">message</i>
-                                <textarea id="message" class="materialize-textarea"></textarea>
+                                <textarea id="message" class="materialize-textarea" v-model="message.content" required></textarea>
                                 <label class="active" for="message">Message :</label>
                             </div>
                         </div>
@@ -27,7 +33,7 @@
                     </div>
                 </div>
                 <div class="card-action">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <button class="btn waves-effect waves-light" @click="sendMessage">Submit
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
@@ -38,16 +44,65 @@
 
 
 <script>
+
+import { messageRef } from '@/firebase';
+
 export default {
   name: 'Contact',
-  props: {
-  }, 
+  data(){
+        return{
+            message:{
+                fullName:"",
+                mail: "",
+                content: "",
+                fullDate: "",
+            },
+            errors: []
+        }
+    },
   methods: {
-    changedValue: function(o){
-        o.style.height = "1px";
-        o.style.height = (25+o.scrollHeight)+"px";
+        sendMessage(){
+            if(this.checkForm()){
+                messageRef.add({fullName: this.message.fullName, mail: this.message.mail, content: this.message.content, fullDate: this.getFullDate()});
+                this.resetEntries();
+            }
+        },
+        getFullDate(){
+            let currentDate = new Date();
+            return (this.twoDigits(currentDate.getDate()) + "/"
+                + this.twoDigits(currentDate.getMonth()+1) + "/"
+                + currentDate.getFullYear() + " "
+                + this.twoDigits(currentDate.getHours()) + "h"
+                + this.twoDigits(currentDate.getMinutes()) + "m"
+                + this.twoDigits(currentDate.getSeconds()) + "s");
+        },
+        twoDigits(n){
+            return n > 9 ? "" + n: "0" + n;
+        },
+        resetEntries(){
+            this.message.fullName = ""
+            this.message.mail = ""
+            this.message.content = ""
+            this.message.fullDate = ""
+        },
+        validEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        },
+        checkForm() {
+            this.errors = [];
+            if(!this.message.fullName) this.errors.push("Nom complet requis.");
+            if(!this.message.content) this.errors.push("Message requis.");
+            if(!this.message.mail) {
+            this.errors.push("Email requis.");
+            } else if(!this.validEmail(this.message.mail)) {
+            this.errors.push("Un email valide est requis.");        
+            }
+            if(!this.errors.length) return true;
+    },
     }
-}
+    
+    
 
 }
 </script>
