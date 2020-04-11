@@ -14,7 +14,7 @@ export default {
   name: "dropdown",
   props: {
     titleDropDown: String,
-    items: {}
+    items: Object
   },
   data() {
     return {
@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     getValue(item) {
+      console.log(item);
       this.$parent.dropdownFunction(item);
     }
   }

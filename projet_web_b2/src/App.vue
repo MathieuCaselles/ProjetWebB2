@@ -48,20 +48,21 @@ export default {
   },
   data() {
     return {
-      services: [
-        {
+      services: {
+        0: {
           id: 0,
           data: {
             nom: "Boutique en ligne"
           }
         },
-        {
+        1: {
           id: 1,
           data: {
             nom: "Point de vente"
           }
         }
-      ],
+      },
+
       dropDownSelect: "Boutique"
     };
   },
