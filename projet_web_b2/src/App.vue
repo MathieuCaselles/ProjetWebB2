@@ -11,7 +11,7 @@
             </router-link>
           </li>
           <li>
-            <Dropdown titleDropDown="Boutique" :items="services" />
+            <Dropdown :titleDropDown="dropDownSelect" :items="services" />
           </li>
           <li>
             <router-link class="waves-effect waves-light btn green" to="/contact">
@@ -50,12 +50,19 @@ export default {
     return {
       services: [
         {
-          title: "Boutique en ligne"
+          id: 0,
+          data: {
+            nom: "Boutique en ligne"
+          }
         },
         {
-          title: "Point de vente"
+          id: 1,
+          data: {
+            nom: "Point de vente"
+          }
         }
-      ]
+      ],
+      dropDownSelect: "Boutique"
     };
   },
   computed: {
@@ -77,17 +84,23 @@ export default {
     },
     goToShop() {
       this.$store.commit("setIndexPagination", 0);
-      this.$router.push("/boutique");
+      if (this.$router.currentRoute.path != "/boutique") {
+        this.$router.push("/boutique");
+      }
     },
     goToLocalShop() {
       this.$store.commit("setIndexPagination", 0);
-      this.$router.push("/boutique");
+      if (this.$router.currentRoute.path != "/boutique") {
+        this.$router.push("/boutique");
+      }
     },
-    dropdownFunction(itemName, index) {
-      if ((itemName = "Boutique en ligne" && index == 0)) {
+    dropdownFunction(item) {
+      if (item.id == 0) {
         this.goToShop();
+        this.dropDownSelect = "Boutique en ligne";
       } else {
         this.goToLocalShop();
+        this.dropDownSelect = "Point de vente";
       }
     }
   }

@@ -1,9 +1,9 @@
 <template>
   <div class="menu-item btn green" @click="isOpen = !isOpen">
-    <a>{{ titleDropDown }}</a>
+    <a class="white-text">{{ titleDropDown }}</a>
     <div class="sub-menu" v-if="isOpen">
-      <div v-for="(item, index) in items" :key="index" class="menu-item">
-        <a @click="getValue(item.title, index)">{{ item.title }}</a>
+      <div v-for="(item) in items" :key="item.id" class="menu-item">
+        <a @click="getValue(items[item.id])" class="white-text">{{ item.data.nom }}</a>
       </div>
     </div>
   </div>
@@ -22,8 +22,8 @@ export default {
     };
   },
   methods: {
-    getValue(itemTitle, index) {
-      this.$parent.dropdownFunction(itemTitle, index);
+    getValue(item) {
+      this.$parent.dropdownFunction(item);
     }
   }
 };
@@ -34,7 +34,7 @@ export default {
   z-index: 2;
   background-color: rgb(76, 175, 80);
   position: absolute;
-  transform: translateX(-20%);
+  transform: translateX(-10%);
   width: max max-content;
   border-radius: 0px 0px 16px 16px;
 }
