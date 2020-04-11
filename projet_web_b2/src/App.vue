@@ -11,10 +11,7 @@
             </router-link>
           </li>
           <li>
-            <a @click="goToBoutique" class="waves-effect waves-light btn green">
-              Boutique
-              <i class="material-icons right">shopping_cart</i>
-            </a>
+            <Dropdown titleDropDown="Boutique" :items="services" />
           </li>
           <li>
             <router-link class="waves-effect waves-light btn green" to="/contact">
@@ -40,12 +37,26 @@
 </template>
 
 <script>
+import Dropdown from "@/components/Dropdown.vue";
 import Footer from "@/components/Footer.vue";
 
 const firebase = require("./firebase.js");
 export default {
   components: {
+    Dropdown,
     Footer
+  },
+  data() {
+    return {
+      services: [
+        {
+          title: "Boutique en ligne"
+        },
+        {
+          title: "Point de vente"
+        }
+      ]
+    };
   },
   computed: {
     getUserStore() {
@@ -64,9 +75,20 @@ export default {
           console.log(error);
         });
     },
-    goToBoutique() {
+    goToShop() {
       this.$store.commit("setIndexPagination", 0);
       this.$router.push("/boutique");
+    },
+    goToLocalShop() {
+      this.$store.commit("setIndexPagination", 0);
+      this.$router.push("/boutique");
+    },
+    dropdownFunction(itemName, index) {
+      if ((itemName = "Boutique en ligne" && index == 0)) {
+        this.goToShop();
+      } else {
+        this.goToLocalShop();
+      }
     }
   }
 };

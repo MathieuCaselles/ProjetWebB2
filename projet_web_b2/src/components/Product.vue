@@ -1,15 +1,14 @@
 <template>
   <div class="col s6 m4 l3 xl2">
-    <div class="card card-product small">
+    <div class="card small">
       <div class="card-image">
-        <img :src="product.data.image" />
-        <span class="card-title green">Yes</span>
+        <img :src="product.data.image" class="imageSize" />
       </div>
       <div class="card-content">
         <p>{{ product.data.nom}}</p>
       </div>
       <div class="card-action">
-        <button v-on:click="oui(product)">Voir le produit</button>
+        <a @click="checkProduit(product)" class="btn green">Voir le produit</a>
       </div>
     </div>
   </div>
@@ -22,7 +21,7 @@ export default {
     isOk: Boolean
   },
   methods: {
-    oui: function(product) {
+    checkProduit: function(product) {
       this.$store.commit("setProductDetail", product);
       this.$router.push("/produit");
     }
@@ -31,7 +30,8 @@ export default {
 </script>
 
 <style>
-.card-product {
+.imageSize {
   width: 15em;
+  height: 15em;
 }
 </style>

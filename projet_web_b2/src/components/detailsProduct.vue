@@ -42,10 +42,6 @@
 <script>
 export default {
   name: "detailsProduct",
-  props: {
-    msg: String,
-    heroeName: String
-  },
   computed: {
     product: function() {
       return this.$store.state.productDetail;
@@ -73,10 +69,6 @@ export default {
 
 .card .card-action {
   padding: 22px 0px 0px;
-}
-
-.card.horizontal .card-image img {
-  height: 100%;
 }
 
 .card .card-content p {

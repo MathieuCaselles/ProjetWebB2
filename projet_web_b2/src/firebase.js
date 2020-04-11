@@ -20,6 +20,7 @@ const auth = firebase.auth()
 const currentUser = auth.currentUser
 const productsRef = db.collection("produits");
 const messageRef = db.collection("messages")
+const stockRef = db.collection("stock");
 
 // date issue fix according to firebase
 const settings = {
@@ -33,4 +34,5 @@ export {
     currentUser,
     productsRef,
     messageRef
+    stockRef
 }

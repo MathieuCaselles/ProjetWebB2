@@ -9,7 +9,7 @@
       />
     </div>
     <div id="pagination">
-      <ul class="pagination center" ref="indexPage">
+      <ul class="pagination center">
         <li
           v-for="index in nbrPageReel"
           v-bind:key="index"
@@ -36,14 +36,11 @@ export default {
   created() {
     this.$store.commit("updateProduits");
   },
-  mounted: function() {
-    this.firstUpdtatePaginate();
-  },
   data() {
     return {
       current: 1,
       products: [],
-      paginate: 3,
+      paginate: 12,
       paginate_total: 1
     };
   },
