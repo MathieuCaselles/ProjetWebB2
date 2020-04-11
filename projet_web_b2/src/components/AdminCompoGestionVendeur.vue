@@ -1,0 +1,133 @@
+<template>
+  <div>
+    <div class="row center-align">
+      <div class="col s6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Info Vendeur</span>
+            <div class="row">
+              <div class="row">
+                <div class="col s6">
+                  <p>{{ vendeur.data.nom }}</p>
+                </div>
+                <div class="col s6">
+                  <p>{{ vendeur.data.adresse }}</p>
+                </div>
+                <div class="col s12">
+                  <p>{{ vendeur.data.horaire }}</p>
+                </div>
+                <br />
+                <div class="col s12 grey">
+                  <p>{{ vendeur.data.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s2 m2" v-for="(product, index) in products" v-bind:key="index">
+        <div class="card card-product">
+          <div class="card-image">
+            <img v-bind:src="product.data().image" />
+            <span class="card-title black-text">{{ product.data().nom }} / {{ product.data().type }}</span>
+          </div>
+          <div class="card-content card-content-product">
+            <p>{{ product.data().description }}</p>
+          </div>
+          <div class="card-action">
+            <button class="btn waves-effect waves-light" @click="deleteProduct(product.id)">
+              Delete
+              <i class="material-icons right">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { productsRef } from "@/firebase";
+
+export default {
+  data() {
+    return {
+      product: {
+        name: "",
+        type: "",
+        description: "",
+        image: ""
+      },
+      products: []
+    };
+  },
+  props: {
+    vendeur: {}
+  },
+  created() {
+    this.readData();
+  },
+  computed: {
+    listeStocks: function() {
+      return this.$store.state.stocksSelect;
+    }
+  },
+  methods: {
+    readData() {
+      this.products = [];
+      productsRef.get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.products.push(doc);
+        });
+      });
+    },
+    addProduct() {
+      productsRef.add({
+        nom: this.product.name,
+        type: this.product.type,
+        description: this.product.description,
+        image: this.product.image
+      });
+      this.readData();
+      this.resetEntries();
+    },
+    deleteProduct(doc) {
+      if (confirm("Voulez-vous vraiment supprimer ce produit ?")) {
+        productsRef
+          .doc(doc)
+          .delete()
+          .then(function() {
+            console.log("Document successfully deleted!");
+          })
+          .catch(function(error) {
+            console.error("Error removing document: ", error);
+          });
+      }
+      this.readData();
+    },
+    resetEntries() {
+      this.product.name = "";
+      this.product.type = "";
+      this.product.image = "";
+      this.product.description = "";
+    }
+  }
+};
+</script>
+<style>
+textarea {
+  height: 8rem !important;
+}
+
+.card .card-image img {
+  height: 200px;
+}
+
+.card .card-content-product {
+  height: 300px;
+  overflow: auto;
+}
+</style>
