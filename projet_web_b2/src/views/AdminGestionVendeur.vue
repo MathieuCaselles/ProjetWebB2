@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      vendeurName: "choix du vendeur"
+      vendeurSelect: { data: { nom: "Choix du vendeur" } }
     };
   },
   created() {
@@ -25,14 +25,15 @@ export default {
   computed: {
     listeVendeurs: function() {
       return this.$store.state.listeVendeurs;
-    },
-    vendeurSelect: function() {
-      return this.$store.state.vendeurSelect;
     }
+    /* vendeurSelect: function() {
+      return this.$store.state.vendeurSelect;
+    }*/
   },
   methods: {
     dropdownFunction(vendeur) {
-      this.$store.commit("setVendeur", vendeur);
+      //this.$store.commit("setVendeur", vendeur);
+      this.vendeurSelect = vendeur;
       console.log(vendeur);
     }
   }
