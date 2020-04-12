@@ -3,23 +3,24 @@
     <div class="col s12 m10 l8 offset-l2 offset-m1">
       <div class="card horizontal">
         <div class="card-image">
-          <img :src="product.data.image" style="widht: 50em, height: 50em" />
+          <img :src="product.data.dataProduit.image" style="widht: 50em, height: 50em" />
         </div>
         <div class="card-stacked">
           <div class="card-content">
             <div>
-              <p class="alignleft">{{product.data.nom}}</p>
-              <p class="alignright">Product Price</p>
+              <p class="alignleft">{{product.data.dataProduit.nom}}</p>
+              <p class="alignright">{{product.data.prix}} €</p>
             </div>
             <div style="clear: both;">
               <hr />
               <p>
-                <span class="quantity-title">Quantité:</span>NumberProduct
+                <span class="quantity-title">Quantité:</span>
+                {{product.data.quantite}}
               </p>
               <hr />
               <p class="description-title">Description :</p>
             </div>
-            <p>{{product.data.description}}</p>
+            <p>{{product.data.dataProduit.description}}</p>
             <div class="card-action">
               <div class="input-field col s3">
                 <input value id="quantity" type="number" class="validate" min="0" max="10" />
@@ -32,10 +33,10 @@
           </div>
         </div>
       </div>
-      <router-link class="waves-effect waves-light btn green" to="/boutique">
+      <a class="waves-effect waves-light btn green" @click="goToShop">
         <i class="material-icons left">keyboard_backspace</i>
         Retour dans la boutique
-      </router-link>
+      </a>
     </div>
   </div>
 </template>
@@ -45,6 +46,13 @@ export default {
   computed: {
     product: function() {
       return this.$store.state.productDetail;
+    }
+  },
+  methods: {
+    goToShop() {
+      if (this.$router.currentRoute.path != "/boutique") {
+        this.$router.push("/boutique");
+      }
     }
   }
 };

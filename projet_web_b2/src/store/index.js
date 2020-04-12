@@ -10,7 +10,7 @@ const vuexLocalStorage = new VuexPersist({
   reducer: state => ({
     currentUser: state.currentUser,
     productDetail: state.productDetail,
-    indexPagination: state.indexPagination
+    indexPagination: state.indexPagination,
   })
 })
 
@@ -57,7 +57,6 @@ const store = new Vuex.Store({
     },
     updateStockVendeur(state, val) {
       let listeStocks = [];
-      let listeProduitVendeur = [];
 
       firebase.db.collection("stock").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -72,6 +71,7 @@ const store = new Vuex.Store({
               listeStocks.push({
                 id: idStock, data: {
                   idProduit: idProduitSelect,
+                  idVendeur: val,
                   stock: nbrStock,
                   quantite: qte,
                   prix: price,
@@ -82,9 +82,9 @@ const store = new Vuex.Store({
             });
           }
 
-        });
+        })
+      }).then(() => {
         state.stocksVendeur = listeStocks;
-        state.produitsVendeur = listeProduitVendeur;
       });
     },
   },

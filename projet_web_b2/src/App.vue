@@ -84,15 +84,15 @@ export default {
         });
     },
     goToShop() {
+      this.$store.commit("updateStockVendeur", 1);
       this.$store.commit("setIndexPagination", 0);
       if (this.$router.currentRoute.path != "/boutique") {
         this.$router.push("/boutique");
       }
     },
-    goToLocalShop() {
-      this.$store.commit("setIndexPagination", 0);
-      if (this.$router.currentRoute.path != "/boutique") {
-        this.$router.push("/boutique");
+    goToVendeur() {
+      if (this.$router.currentRoute.path != "/vendeurs") {
+        this.$router.push("/vendeurs");
       }
     },
     dropdownFunction(item) {
@@ -100,7 +100,7 @@ export default {
         this.goToShop();
         this.dropDownSelect = "Boutique en ligne";
       } else {
-        this.goToLocalShop();
+        this.goToVendeur();
         this.dropDownSelect = "Point de vente";
       }
     }

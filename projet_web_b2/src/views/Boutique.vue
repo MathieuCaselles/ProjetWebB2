@@ -33,9 +33,6 @@ export default {
   components: {
     Product
   },
-  created() {
-    this.$store.commit("updateProduits");
-  },
   data() {
     return {
       current: 1,
@@ -47,7 +44,7 @@ export default {
   computed: {
     // get only
     listeProduits: function() {
-      return this.$store.state.produits;
+      return this.$store.state.stocksVendeur;
     },
     nbrPageReel: function() {
       if (this.listeProduits == null) {

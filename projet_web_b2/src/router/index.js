@@ -25,6 +25,14 @@ const routes = [
     }
   },
   {
+    path: '/vendeurs',
+    name: 'ListeVendeur',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/ListeVendeur.vue'),
+  },
+  {
     path: '/produit',
     name: 'Products',
     // route level code-splitting
