@@ -109,13 +109,16 @@ export default {
   },
   methods: {
     ajouterVendeur() {
-      db.collection("vendeur").add({
-        nom: this.$refs.addVendeurNom.value,
-        adresse: this.$refs.addVendeurAdresse.value,
-        horaire: this.$refs.addVendeurHoraire.value,
-        description: this.$refs.addVendeurDescription.value
-      });
-      this.$router.go();
+      db.collection("vendeur")
+        .add({
+          nom: this.$refs.addVendeurNom.value,
+          adresse: this.$refs.addVendeurAdresse.value,
+          horaire: this.$refs.addVendeurHoraire.value,
+          description: this.$refs.addVendeurDescription.value
+        })
+        .then(() => {
+          this.$router.go();
+        });
     },
     updateVendeur(vendeurId) {
       db.collection("vendeur")
@@ -125,8 +128,10 @@ export default {
           adresse: this.$refs.vendeurAdresse.value,
           horaire: this.$refs.vendeurHoraire.value,
           description: this.$refs.vendeurDescription.value
+        })
+        .then(() => {
+          this.$router.go();
         });
-      this.$router.go();
     },
     deleteVendeur(vendeurId) {
       if (confirm("Voulez-vous vraiment supprimer ce vendeur ?")) {
