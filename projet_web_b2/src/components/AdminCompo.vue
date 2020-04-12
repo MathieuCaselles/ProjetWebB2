@@ -38,7 +38,7 @@
     </div>
     <div class="row">
     <div class="col s2 m2" v-for="(product, index) in products" v-bind:key="index">
-      <div class="card card-product">
+      <div class="card card-product" v-if="!product.data().edit">
         <div class="card-image">
           <img v-bind:src="product.data().image">
           <span class="card-title black-text">{{ product.data().nom }} / {{ product.data().type }}</span>
@@ -48,8 +48,28 @@
           <p>{{ product.data().description }}</p>
         </div>
         <div class="card-action">
-          <button class="btn waves-effect waves-light" @click="deleteProduct(product.id)">Delete<i class="material-icons right">delete</i></button>
+          <button class="btn-small waves-effect waves-light blue" @click="editProduct(product.id)">edit<i class="material-icons right">edit</i></button>
+          <button class="btn-small waves-effect waves-light red" @click="deleteProduct(product.id)">Delete<i class="material-icons right">delete</i></button>
         </div>
+      </div>
+      <div class="card card-product" v-else>
+          <div class="card card-product">
+              <div class="card-image">
+          <img v-bind:src="product.data().image">
+          <span class="card-title black-text">{{ product.data().nom }} / {{ product.data().type }}</span>
+        </div>
+        <div class="card-content card-content-product">
+            <input type="text" v-model="product.name">
+            <input type="text" v-model="product.type">
+            <input type="text" v-model="product.image">
+            <label for="description" class="active">Description</label>
+            <textarea type="text" v-model="product.description"/>
+        </div>
+        <div class="card-action">
+          <button class="btn-small waves-effect waves-light blue" @click="saveEdit(product)">Save<i class="material-icons right">save</i></button>
+          <button class="btn-small waves-effect waves-light red" @click="cancelEdit(product.id)">Cancel<i class="material-icons right">cancel</i></button>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -67,6 +87,14 @@ export default {
                 type: "",
                 description: "",
                 image: "",
+                edit:""
+            },
+            editedProduct:{
+                name: "",
+                type: "",
+                description: "",
+                image: "",
+                edit: ""
             },
             products:[]
 
@@ -82,7 +110,7 @@ export default {
         })
         },
         addProduct(){
-            productsRef.add({nom: this.product.name, type: this.product.type, description: this.product.description, image: this.product.image});
+            productsRef.add({nom: this.product.name, type: this.product.type, description: this.product.description, image: this.product.image, edit:false});
             this.readData();
             this.resetEntries();
         },
@@ -96,11 +124,21 @@ export default {
             }
             this.readData();
         },
+        editProduct(doc){
+            productsRef.doc(doc).update({edit: true})
+        },
         resetEntries(){
             this.product.name = ""
             this.product.type = ""
             this.product.image = ""
             this.product.description = ""
+        }, 
+        cancelEdit(doc){
+            productsRef.doc(doc).update({edit: false})
+        },
+        saveEdit(product){
+            const key = product.id
+            productsRef.doc(key).update({nom: product.name, type: product.type, image: product.image, description: product.description, edit: false})
         }
     },
     created(){
@@ -115,10 +153,16 @@ textarea {
 
 .card .card-image img{
     height: 200px;
+    overflow:hidden
 }
 
 .card .card-content-product {
     height: 300px;
     overflow: auto;
 }
+
+.waves-effect{
+    margin: 1px;
+}
+
 </style>
