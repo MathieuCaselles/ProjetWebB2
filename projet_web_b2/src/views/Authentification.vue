@@ -47,6 +47,9 @@
 
 <script>
 const firebase = require("../firebase.js");
+
+import { db } from "@/firebase"
+
 export default {
   data() {
     return {
@@ -77,6 +80,16 @@ export default {
         )
         .then(user => {
           this.$store.commit("setCurrentUser", user);
+          db.collection("profiles").doc(user.user.uid).set({
+            name:"john"
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+
           this.$router.push("/boutique");
         })
         .catch(err => {
