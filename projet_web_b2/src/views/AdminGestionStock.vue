@@ -2,18 +2,19 @@
   <div>
     <br />
     <Dropdown :titleDropDown="vendeurSelect.data.nom" :items="listeVendeurs" />
-    <AdminCompoGestionVendeur :vendeur="vendeurSelect" />
+    <h2>Stock du vendeur</h2>
+    <AdminCompoGestionStock :vendeur="vendeurSelect" />
   </div>
 </template>
 <script>
 import Dropdown from "@/components/Dropdown.vue";
-import AdminCompoGestionVendeur from "@/components/AdminCompoGestionVendeur.vue";
+import AdminCompoGestionStock from "@/components/AdminCompoGestionStock.vue";
 
 export default {
   name: "AdminGestionVendeur",
   components: {
     Dropdown,
-    AdminCompoGestionVendeur
+    AdminCompoGestionStock
   },
   data() {
     return {

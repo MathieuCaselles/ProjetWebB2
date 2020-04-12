@@ -1,59 +1,94 @@
 <template>
   <div>
     <div class="row center-align">
-      <div class="col s5 limiterProduits">
-        <div class="card blue-grey darken-1">
+      <div class="col s6 limiterProduits">
+        <div class="card green darken-4">
           <div class="card-content white-text">
-            <span class="card-title">Info Vendeur</span>
+            <span class="card-title white-text">Info vendeur</span>
             <div class="row">
               <div class="row">
                 <div class="col s6">
-                  <p>{{ vendeur.data.nom }}</p>
+                  <label class="active white-text" for="name">Nom :</label>
+                  <input class="white-text" type="text" ref="vendeurNom" :value="vendeur.data.nom" />
                 </div>
                 <div class="col s6">
-                  <p>{{ vendeur.data.adresse }}</p>
+                  <label class="active white-text" for="name">Adresse :</label>
+                  <input
+                    class="white-text"
+                    type="text"
+                    ref="vendeurAdresse"
+                    :value="vendeur.data.adresse"
+                  />
                 </div>
                 <div class="col s12">
-                  <p>{{ vendeur.data.horaire }}</p>
+                  <label class="active white-text" for="name">Horaires :</label>
+                  <input
+                    class="white-text"
+                    type="text"
+                    ref="vendeurHoraire"
+                    :value="vendeur.data.horaire"
+                  />
                 </div>
                 <br />
-                <div class="col s12 grey">
-                  <p>{{ vendeur.data.description }}</p>
+                <div class="col s12">
+                  <label class="active white-text" for="message">description :</label>
+                  <textarea
+                    id="message"
+                    class="materialize-textarea white-text"
+                    ref="vendeurDescription"
+                    :value="vendeur.data.description"
+                  ></textarea>
                 </div>
               </div>
+            </div>
+            <div class="card-action">
+              <button class="btn waves-effect waves-light left" @click="updateVendeur(vendeur.id)">
+                Mettre à jour
+                <i class="material-icons right">loop</i>
+              </button>
+
+              <button
+                class="btn waves-effect waves-light right red"
+                @click="deleteVendeur(vendeur)"
+              >
+                Supprimer
+                <i class="material-icons right">delete</i>
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="col s7 limiterProduits">
-        <div class="col s4 m4" v-for="(product, index) in products" v-bind:key="index">
-          <div class="card card-product">
-            <div class="card-image">
-              <img v-bind:src="product.data().image" />
-              <span
-                class="card-title black-text"
-              >{{ product.data().nom }} / {{ product.data().type }}</span>
-            </div>
-            <div class="card-content card-content-product">
-              <p>{{ product.data().description }}</p>
+      <div class="col s6 limiterProduits">
+        <div class="card green darken-4">
+          <div class="card-content white-text">
+            <span class="card-title white-text">Ajouter un vendeur</span>
+            <div class="row">
+              <div class="row">
+                <div class="col s6">
+                  <label class="active white-text" for="name">Nom :</label>
+                  <input class="white-text" type="text" ref="addVendeurNom" />
+                </div>
+                <div class="col s6">
+                  <label class="active white-text" for="name">Adresse :</label>
+                  <input class="white-text" type="text" ref="addVendeurAdresse" />
+                </div>
+                <div class="col s12">
+                  <label class="active white-text" for="name">Horaires :</label>
+                  <input class="white-text" type="text" ref="addVendeurHoraire" />
+                </div>
+                <br />
+                <div class="col s12">
+                  <label class="active white-text" for="message">description :</label>
+                  <textarea
+                    id="message"
+                    class="materialize-textarea white-text"
+                    ref="addVendeurDescription"
+                  ></textarea>
+                </div>
+              </div>
             </div>
             <div class="card-action">
-              <div class="input-field col s6">
-                <input type="text" ref="productsQuantite" />
-                <label class="active" for="name">Quantitée :</label>
-              </div>
-              <div class="input-field col s6">
-                <input type="text" ref="productsStock" />
-                <label class="active">Nbr Stock restant :</label>
-              </div>
-              <div class="input-field col s6 offset-s3">
-                <input type="text" ref="productsPrix" />
-                <label class="active">Prix:</label>
-              </div>
-              <button
-                class="btn waves-effect waves-light"
-                @click="addProductToVendeur(product.id, index)"
-              >
+              <button class="btn waves-effect waves-light right green" @click="ajouterVendeur">
                 Ajouter
                 <i class="material-icons right">add</i>
               </button>
@@ -62,142 +97,56 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col s2 m2" v-for="(stock, index) in stockVendeur" v-bind:key="index">
-        <div class="card card-product">
-          <div class="card-image">
-            <img v-bind:src="stock.data.dataProduit.image" />
-            <span
-              class="card-title black-text"
-            >{{ stock.data.dataProduit.nom }} / {{ stock.data.dataProduit.type }}</span>
-          </div>
-          <div class="card-content card-content-product">
-            <div class="input-field col s6">
-              <input type="text" ref="vendeurQuantite" :value="stock.data.quantite" />
-              <label class="active" for="name">Quantitée :</label>
-            </div>
-            <div class="input-field col s6">
-              <input type="text" ref="vendeurStock" :value="stock.data.stock" />
-              <label class="active">Nbr Stock restant :</label>
-            </div>
-            <div class="input-field col s6 offset-s3">
-              <input type="text" ref="vendeurPrix" :value="stock.data.prix" />
-              <label class="active">Prix:</label>
-            </div>
-            <br />
-            <p>{{ stock.data.dataProduit.description }}</p>
-          </div>
-          <div class="card-action">
-            <button
-              class="btn waves-effect waves-light"
-              @click="updateProductVendeur(stock.id, index)"
-            >
-              Update
-              <i class="material-icons right">loop</i>
-            </button>
-
-            <button class="btn waves-effect waves-light" @click="deleteProduct(stock.id)">
-              Delete
-              <i class="material-icons right">delete</i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import { productsRef } from "@/firebase";
-import { stockRef } from "@/firebase";
 import { db } from "@/firebase";
 
 export default {
-  data() {
-    return {
-      product: {
-        name: "",
-        type: "",
-        description: "",
-        image: ""
-      },
-      products: []
-    };
-  },
   props: {
     vendeur: Object
   },
-  created() {
-    this.readData();
-  },
-  computed: {
-    stockVendeur: function() {
-      return this.$store.state.stocksVendeur;
-    }
-  },
   methods: {
-    readData() {
-      this.products = [];
-      productsRef.get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.products.push(doc);
-        });
+    ajouterVendeur() {
+      db.collection("vendeur").add({
+        nom: this.$refs.addVendeurNom.value,
+        adresse: this.$refs.addVendeurAdresse.value,
+        horaire: this.$refs.addVendeurHoraire.value,
+        description: this.$refs.addVendeurDescription.value
       });
+      this.$router.go();
     },
-    addProductToVendeur(produitId, index) {
-      stockRef.add({
-        vendeur: db.doc(`/vendeur/${this.vendeur.id}`),
-        produit: db.doc(`/produits/${produitId}`),
-        quantite: this.$refs.productsQuantite[index].value,
-        nbrStock: this.$refs.productsStock[index].value,
-        prix: this.$refs.productsPrix[index].value
-      });
-      this.$store.commit("updateStockVendeur", this.vendeur.id);
-    },
-    updateProductVendeur(stockId, index) {
-      db.collection("stock")
-        .doc(stockId)
+    updateVendeur(vendeurId) {
+      db.collection("vendeur")
+        .doc(vendeurId)
         .update({
-          quantite: this.$refs.vendeurQuantite[index].value,
-          nbrStock: this.$refs.vendeurStock[index].value,
-          prix: this.$refs.vendeurPrix[index].value
+          nom: this.$refs.vendeurNom.value,
+          adresse: this.$refs.vendeurAdresse.value,
+          horaire: this.$refs.vendeurHoraire.value,
+          description: this.$refs.vendeurDescription.value
         });
-      this.$store.commit("updateStockVendeur", this.vendeur.id);
+      this.$router.go();
     },
-    deleteProduct(stockId) {
-      if (confirm("Voulez-vous vraiment supprimer ce produit ?")) {
-        db.collection("stock")
-          .doc(stockId)
+    deleteVendeur(vendeurId) {
+      if (confirm("Voulez-vous vraiment supprimer ce vendeur ?")) {
+        db.collection("vendeur")
+          .doc(vendeurId)
           .delete()
           .then(function() {
             console.log("Document successfully deleted!");
+            this.$router.go();
           })
           .catch(function(error) {
             console.error("Error removing document: ", error);
           });
       }
-      this.$store.commit("updateStockVendeur", this.vendeur.id);
     }
   }
 };
 </script>
 <style>
-.limiterProduits {
-  max-height: 30em;
-  margin: auto;
-  overflow: auto;
-}
 textarea {
-  height: 8rem !important;
-}
-
-.card .card-image img {
-  height: 200px;
-}
-
-.card .card-content-product {
-  height: 10em;
-  overflow: auto;
+  height: 20rem !important;
 }
 </style>

@@ -49,7 +49,15 @@ const routes = [
     component: () => import('../views/Admin.vue')
   },
   {
-    path: '/admin-gestion-vendeur',
+    path: '/admin-stock',
+    name: 'AdminGestionStock',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/AdminGestionStock.vue')
+  },
+  {
+    path: '/admin-vendeur',
     name: 'AdminGestionVendeur',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

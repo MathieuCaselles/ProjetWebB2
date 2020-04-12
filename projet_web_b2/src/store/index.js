@@ -22,10 +22,14 @@ const store = new Vuex.Store({
     indexPagination: 0,
     listeVendeurs: null,
     stocksVendeur: null,
+    vendeurSelect: { data: { nom: "Choix du vendeur" } },
   },
   mutations: {
     setCurrentUser(state, val) {
       state.currentUser = val;
+    },
+    setVendeurSelect(state, val) {
+      state.vendeurSelects = val;
     },
     setProductDetail(state, val) {
       state.productDetail = val;
