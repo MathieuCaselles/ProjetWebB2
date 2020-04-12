@@ -28,17 +28,17 @@
     </div>
 
     <div class="row">
-      <div class="col s2 m2" v-for="(product, index) in products" v-bind:key="index">
+      <div class="col s2 m2" v-for="(product, index) in productsLink" v-bind:key="index">
         <div class="card card-product">
           <div class="card-image">
-            <img v-bind:src="product.data().image" />
-            <span class="card-title black-text">{{ product.data().nom }} / {{ product.data().type }}</span>
+            <img v-bind:src="product.image" />
+            <span class="card-title black-text">{{ product.nom }} / {{ product.type }}</span>
           </div>
           <div class="card-content card-content-product">
-            <p>{{ product.data().description }}</p>
+            <p>{{ product.description }}</p>
           </div>
           <div class="card-action">
-            <button class="btn waves-effect waves-light" @click="deleteProduct(product.id)">
+            <button class="btn waves-effect waves-light" @click="debugTest">
               Delete
               <i class="material-icons right">delete</i>
             </button>
@@ -65,14 +65,17 @@ export default {
     };
   },
   props: {
-    vendeur: {}
+    vendeur: Object
   },
   created() {
     this.readData();
   },
   computed: {
-    listeStocks: function() {
-      return this.$store.state.stocksSelect;
+    stockVendeur: function() {
+      return this.$store.state.stocksVendeur;
+    },
+    productsLink: function() {
+      return this.$store.state.produitsVendeur;
     }
   },
   methods: {
@@ -83,6 +86,9 @@ export default {
           this.products.push(doc);
         });
       });
+    },
+    debugTest() {
+      console.log(this.$store.state.stocksVendeur);
     },
     addProduct() {
       productsRef.add({

@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     getValue(item) {
-      console.log(item);
       this.$parent.dropdownFunction(item);
     }
   }
