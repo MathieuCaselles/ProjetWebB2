@@ -49,7 +49,7 @@
 
               <button
                 class="btn waves-effect waves-light right red"
-                @click="deleteVendeur(vendeur)"
+                @click="deleteVendeur(vendeur.id)"
               >
                 Supprimer
                 <i class="material-icons right">delete</i>
@@ -133,7 +133,7 @@ export default {
         db.collection("vendeur")
           .doc(vendeurId)
           .delete()
-          .then(function() {
+          .then(() => {
             console.log("Document successfully deleted!");
             this.$router.go();
           })
