@@ -22,7 +22,6 @@ const store = new Vuex.Store({
     indexPagination: 0,
     listeVendeurs: null,
     stocksVendeur: null,
-    produitsVendeur: null,
   },
   mutations: {
     setCurrentUser(state, val) {
@@ -55,12 +54,27 @@ const store = new Vuex.Store({
     updateStockVendeur(state, val) {
       let listeStocks = [];
       let listeProduitVendeur = [];
+
       firebase.db.collection("stock").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          listeStocks.push({ id: doc.id, data: doc.data() });
           if (doc.data().vendeur.id == val) {
+            const idStock = doc.id;
+            const idProduitSelect = doc.data().produit.id;
+            const nbrStock = doc.data().nbrStock;
+            const price = parseFloat(doc.data().prix).toFixed(2);
+            const qte = doc.data().quantite;
+
             doc.data().produit.get().then(querySnapshot => {
-              listeProduitVendeur.push(querySnapshot.data());
+              listeStocks.push({
+                id: idStock, data: {
+                  idProduit: idProduitSelect,
+                  stock: nbrStock,
+                  quantite: qte,
+                  prix: price,
+                  dataProduit: querySnapshot.data()
+
+                }
+              });
             });
           }
 
