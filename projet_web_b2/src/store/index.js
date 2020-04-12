@@ -51,13 +51,36 @@ const store = new Vuex.Store({
         state.listeVendeurs = listeVendeurs;
       });
     },
-    updateStockVendeur(state) {
-      let listeVendeurs = new Object();
-      firebase.db.collection("vendeur").get().then((querySnapshot) => {
+    updateStockVendeur(state, val) {
+      let listeStocks = [];
+      let listeProduitVendeur = [];
+
+      firebase.db.collection("stock").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          listeVendeurs[doc.id] = { id: doc.id, data: doc.data() };
+          if (doc.data().vendeur.id == val) {
+            const idStock = doc.id;
+            const idProduitSelect = doc.data().produit.id;
+            const nbrStock = doc.data().nbrStock;
+            const price = parseFloat(doc.data().prix).toFixed(2);
+            const qte = doc.data().quantite;
+
+            doc.data().produit.get().then(querySnapshot => {
+              listeStocks.push({
+                id: idStock, data: {
+                  idProduit: idProduitSelect,
+                  stock: nbrStock,
+                  quantite: qte,
+                  prix: price,
+                  dataProduit: querySnapshot.data()
+
+                }
+              });
+            });
+          }
+
         });
-        state.listeVendeurs = listeVendeurs;
+        state.stocksVendeur = listeStocks;
+        state.produitsVendeur = listeProduitVendeur;
       });
     },
   },
