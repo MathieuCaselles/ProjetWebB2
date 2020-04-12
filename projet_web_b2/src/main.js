@@ -10,7 +10,6 @@ Vue.config.productionTip = false
 
 let app
 firebase.auth.onAuthStateChanged(() => {
-  console.log(store.state.currentUser);
   if (!app) {
     app = new Vue({
       el: '#app',

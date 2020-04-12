@@ -1,16 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import firebase from 'firebase'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
   {
     path: '/authentification',
     name: 'Authentification',
@@ -62,6 +56,14 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/AdminGestionVendeur.vue')
   },
+  {
+    path: '/profil',
+    name: 'Profile',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/Profile.vue')
+  }
 ]
 
 const router = new VueRouter({
@@ -73,8 +75,6 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = firebase.auth().currentUser
-
-  console.log(currentUser)
 
   if (requiresAuth && !currentUser) {
     next('/authentification')

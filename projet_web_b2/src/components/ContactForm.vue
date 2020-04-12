@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="name" type="text" class="validate" v-model="message.fullName" required>
+                                <input id="name" type="text" class="validate" v-model="message.fullName">
                                 <label class="active" for="name">Nom complet :</label>
                             </div>
                             <div class="input-field col s6">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="input-field col s12 inline">
                                 <i class="material-icons prefix">message</i>
-                                <textarea id="message" class="materialize-textarea" v-model="message.content" required></textarea>
+                                <textarea id="message" class="materialize-textarea" v-model="message.content"></textarea>
                                 <label class="active" for="message">Message :</label>
                             </div>
                         </div>
@@ -83,7 +83,6 @@ export default {
             this.message.fullName = ""
             this.message.mail = ""
             this.message.content = ""
-            this.message.fullDate = ""
         },
         validEmail(email) {
             var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
