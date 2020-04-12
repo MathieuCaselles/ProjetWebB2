@@ -77,7 +77,8 @@ export default {
     },
     methods:{
         updateProfile(){
-            db.collection("profiles").doc(auth.currentUser.uid).update(this.profile)
+            db.collection("profiles").doc(auth.currentUser.uid).update(this.profile);
+            alert('Profil bien mis à jour !')
         },
     },
 }

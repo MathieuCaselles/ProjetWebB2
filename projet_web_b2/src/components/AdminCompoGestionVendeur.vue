@@ -73,19 +73,31 @@
             >{{ stock.data.dataProduit.nom }} / {{ stock.data.dataProduit.type }}</span>
           </div>
           <div class="card-content card-content-product">
-            <p>{{ stock.data.stock }} restant.</p>
-            <p>{{ stock.data.quantite }}</p>
-            <p>{{ stock.data.prix }} €</p>
+            <div class="input-field col s6">
+              <input type="text" ref="vendeurQuantite" :value="stock.data.quantite" />
+              <label class="active" for="name">Quantitée :</label>
+            </div>
+            <div class="input-field col s6">
+              <input type="text" ref="vendeurStock" :value="stock.data.stock" />
+              <label class="active">Nbr Stock restant :</label>
+            </div>
+            <div class="input-field col s6 offset-s3">
+              <input type="text" ref="vendeurPrix" :value="stock.data.prix" />
+              <label class="active">Prix:</label>
+            </div>
             <br />
             <p>{{ stock.data.dataProduit.description }}</p>
           </div>
           <div class="card-action">
-            <button class="btn waves-effect waves-light" @click="debugTest">
+            <button
+              class="btn waves-effect waves-light"
+              @click="updateProductVendeur(stock.id, index)"
+            >
               Update
               <i class="material-icons right">loop</i>
             </button>
 
-            <button class="btn waves-effect waves-light" @click="debugTest">
+            <button class="btn waves-effect waves-light" @click="deleteProduct(stock.id)">
               Delete
               <i class="material-icons right">delete</i>
             </button>
@@ -133,19 +145,6 @@ export default {
         });
       });
     },
-    debugTest() {
-      console.log(this.$store.state.stocksVendeur);
-    },
-    addProduct() {
-      productsRef.add({
-        nom: this.product.name,
-        type: this.product.type,
-        description: this.product.description,
-        image: this.product.image
-      });
-      this.readData();
-      this.resetEntries();
-    },
     addProductToVendeur(produitId, index) {
       stockRef.add({
         vendeur: db.doc(`/vendeur/${this.vendeur.id}`),
@@ -155,18 +154,21 @@ export default {
         prix: this.$refs.productsPrix[index].value
       });
       this.$store.commit("updateStockVendeur", this.vendeur.id);
-      console.log(
-        produitId,
-        this.vendeur.id,
-        this.$refs.productsQuantite[index].value,
-        this.$refs.productsStock[index].value,
-        this.$refs.productsPrix[index].value
-      );
     },
-    deleteProduct(doc) {
+    updateProductVendeur(stockId, index) {
+      db.collection("stock")
+        .doc(stockId)
+        .update({
+          quantite: this.$refs.vendeurQuantite[index].value,
+          nbrStock: this.$refs.vendeurStock[index].value,
+          prix: this.$refs.vendeurPrix[index].value
+        });
+      this.$store.commit("updateStockVendeur", this.vendeur.id);
+    },
+    deleteProduct(stockId) {
       if (confirm("Voulez-vous vraiment supprimer ce produit ?")) {
-        productsRef
-          .doc(doc)
+        db.collection("stock")
+          .doc(stockId)
           .delete()
           .then(function() {
             console.log("Document successfully deleted!");
@@ -175,13 +177,7 @@ export default {
             console.error("Error removing document: ", error);
           });
       }
-      this.readData();
-    },
-    resetEntries() {
-      this.product.name = "";
-      this.product.type = "";
-      this.product.image = "";
-      this.product.description = "";
+      this.$store.commit("updateStockVendeur", this.vendeur.id);
     }
   }
 };
