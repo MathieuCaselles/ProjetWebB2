@@ -86,12 +86,12 @@ L'administration se composera obligatoirement des pages suivantes :
     * les administrateurs peuvent consulter :
         * Les messages provenenant de la page contacts
         * Les réservations en datail
-* les administrateurs peuvent gérer les membres / revendeurs avec un CRUD : / difficulté : 4
-    * le CRUD permet de modifier :
-        * un prénom
-        * un nom
-        * une adresse email
-        * adresse de livraison
+* les administrateurs peuvent gérer les utilisateur : / difficulté : 4
+    * Ils peuvent modifier le rôle:
+        * utilisateur
+        * vendeur
+        * administrateur
+        * banni
     * les administrateurs peuvent consulter :
         * les achats de produits
         * les factures en PDF
