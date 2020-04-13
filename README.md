@@ -34,7 +34,6 @@ L'administration se composera obligatoirement des pages suivantes :
 * page des produits  
 * page de connexion
 * page de contact
-* page de FAQ
   
 
 ### Fonctionnalités  
