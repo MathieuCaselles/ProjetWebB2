@@ -11,7 +11,8 @@ const vuexLocalStorage = new VuexPersist({
     currentUser: state.currentUser,
     productDetail: state.productDetail,
     indexPagination: state.indexPagination,
-    vendeurSelect: state.vendeurSelect
+    vendeurSelect: state.vendeurSelect,
+    cart: state.cart
   })
 })
 
@@ -24,9 +25,29 @@ const store = new Vuex.Store({
     listeVendeurs: null,
     stocksVendeur: null,
     vendeurSelect: { data: { nom: "Choix du vendeur" } },
-    profiles: null
+    profiles: null,
+    cart: []
   },
   mutations: {
+    addToCart(state, val) {
+      let vendeurProduct = state.cart.find(product => product.value.data.idVendeur == val.value.data.idVendeur)
+
+      if (!vendeurProduct && state.cart.length > 0) {
+        alert("Vous ne pouvez pas mélanger les article de différent vendeur dans votre panier. \n Si vous souhaiter àjouter cet article, il faudra vider votre panier des articles de vendeurs différent.")
+      } else {
+        let productExist = state.cart.find(product => product.value.data.idProduit == val.value.data.idProduit)
+        if (productExist) {
+          productExist.qte++;
+        } else {
+          state.cart.push(val);
+        }
+      }
+    },
+
+    removeFromCart(state, val) {
+      let index = state.cart.indexOf(val);
+      state.cart.splice(index, 1);
+    },
     setCurrentUser(state, val) {
       state.currentUser = val;
     },

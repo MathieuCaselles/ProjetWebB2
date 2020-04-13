@@ -26,9 +26,7 @@
                 <input value id="quantity" type="number" class="validate" min="0" max="10" />
                 <label class="active" for="quantity">Quantité :</label>
               </div>
-              <a class="waves-effect btn">
-                <i class="material-icons left">add</i>Ajouter au panier
-              </a>
+              <AddToCart :stockProduct="product" />
             </div>
           </div>
         </div>
@@ -41,8 +39,13 @@
   </div>
 </template>
 <script>
+import AddToCart from "@/components/AddToCart.vue";
+
 export default {
   name: "detailsProduct",
+  components: {
+    AddToCart
+  },
   computed: {
     product: function() {
       return this.$store.state.productDetail;
