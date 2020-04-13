@@ -49,12 +49,12 @@ const routes = [
     component: () => import('../views/Contact.vue')
   },
   {
-    path: '/admin',
-    name: 'Admin',
+    path: '/admin-produits',
+    name: 'AdminProducts',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/Admin.vue')
+    component: () => import('../views/AdminProduits.vue')
   },
   {
     path: '/admin-stock',
@@ -79,7 +79,23 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/Profile.vue')
-  }
+  },
+  {
+    path: '/admin-messages',
+    name: 'AdminMessages',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/AdminMessages.vue')
+  },
+  {
+    path: '/admin-profil',
+    name: 'AdminProfil',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/AdminProfile.vue')
+  },
 ]
 
 const router = new VueRouter({

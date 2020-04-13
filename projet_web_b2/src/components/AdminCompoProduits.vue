@@ -75,8 +75,11 @@
               <span class="card-title black-text">{{ product.data.nom }} / {{ product.data.type }}</span>
             </div>
             <div class="card-content card-content-product">
+              <label for="description" class="active">Nom</label>
               <input type="text" v-model="product.name" />
+              <label for="description" class="active">Type</label>
               <input type="text" v-model="product.type" />
+              <label for="description" class="active">Image</label>
               <input type="text" v-model="product.image" />
               <label for="description" class="active">Description</label>
               <textarea type="text" v-model="product.description" />
@@ -113,15 +116,8 @@ export default {
         description: "",
         image: "",
         edit: ""
-      },
-      editedProduct: {
-        name: "",
-        type: "",
-        description: "",
-        image: "",
-        edit: ""
       }
-    };
+    }
   },
   computed: {
     products: function() {

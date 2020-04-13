@@ -46,6 +46,15 @@ const store = new Vuex.Store({
         state.produits = listeProduits;
       });
     },
+    updateProfiles(state) {
+      let listeProfiles = []
+      firebase.db.collection("profiles").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          listeProfiles.push({ id: doc.id, data: doc.data() })
+        });
+        state.profiles = listeProfiles;
+      });
+    },
     updateVendeurs(state) {
       let listeVendeurs = new Object();
       firebase.db.collection("vendeur").get().then((querySnapshot) => {
