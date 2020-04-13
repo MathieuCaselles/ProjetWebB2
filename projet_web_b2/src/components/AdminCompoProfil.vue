@@ -13,8 +13,16 @@
             <tbody>
                 <tr v-for="(profile, index) in profiles" v-bind:key="index">
                     <td>{{ profile.data.mail }}</td>
-                    <td>{{ profile.data.role }}</td>
-                    <td><button class="btn waves-effect waves-light cyan" @click="editProfile(profile.id)">save<i class="material-icons right">save</i></button><button class="btn waves-effect waves-light red">cancel<i class="material-icons right">cancel</i></button></td>
+                    <td v-if="!profile.data.edit">{{ profile.data.role }}</td>
+                    <td v-else>
+                        <select v-model="profile.role">
+                            <option>user</option>
+                            <option>vendeur</option>
+                            <option>admin</option>
+                        </select>
+                    </td>
+                    <td v-if="!profile.data.edit"><button class="btn waves-effect waves-light cyan" @click="editProfile(profile.id)">edit<i class="material-icons right">save</i></button></td>
+                    <td v-else><button class="btn waves-effect waves-light cyan" @click="saveEdit(profile)">save<i class="material-icons right">save</i></button><button class="btn waves-effect waves-light red" @click="cancelEdit(profile.id)">cancel<i class="material-icons right">cancel</i></button></td>
                 </tr>
             </tbody>
           </table>
@@ -61,6 +69,26 @@ export default {
             this.$store.commit("updateProfiles");
             });
     },
+        cancelEdit(doc) {
+        profilesRef
+            .doc(doc)
+            .update({ edit: false })
+            .then(() => {
+            this.$store.commit("updateProfiles");
+            });
+        },
+        saveEdit(profile) {
+            const key = profile.id;
+            profilesRef
+                .doc(key)
+                .update({
+                role: profile.role,
+                edit: false
+                })
+                .then(() => {
+                this.$store.commit("updateProfiles");
+                });
+    }
     },
     created(){
         this.$store.commit("updateProfiles");
@@ -70,5 +98,9 @@ export default {
 <style>
 td select {
     border: none;
+}
+
+select{
+    display:inline;
 }
 </style>
