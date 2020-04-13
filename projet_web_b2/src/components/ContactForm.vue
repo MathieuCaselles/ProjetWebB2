@@ -2,7 +2,7 @@
     <div class="row center-align">
         <div class="col s6 offset-s3">
             <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
+                <div class="card-content white-text contact" >
                     <span class="card-title">Nous contacter :</span>
                     <div class="row">
                         <p v-if="errors.length">
@@ -63,8 +63,12 @@ export default {
   methods: {
         sendMessage(){
             if(this.checkForm()){
-                messageRef.add({fullName: this.message.fullName, mail: this.message.mail, content: this.message.content, fullDate: this.getFullDate()});
+                messageRef.add({fullName: this.message.fullName, mail: this.message.mail, content: this.message.content, fullDate: this.getFullDate()})
+                .then(() => {
                 this.resetEntries();
+                alert("Votre message a bien été envoyé");
+                });
+                
             }
         },
         getFullDate(){
@@ -108,5 +112,8 @@ export default {
 <style>
 textarea {
     height: 20rem !important;
+}
+.contact {
+    height: 99%;
 }
 </style>
