@@ -44,6 +44,12 @@ const store = new Vuex.Store({
       }
     },
 
+    setQteProductCart(state, val) {
+      let index = state.cart.indexOf(val.productSet);
+
+      state.cart[index].qte = val.newValue
+    },
+
     removeFromCart(state, val) {
       let index = state.cart.indexOf(val);
       state.cart.splice(index, 1);

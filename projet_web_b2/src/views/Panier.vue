@@ -19,10 +19,15 @@
                 <td>{{product.value.data.dataProduit.nom}}</td>
 
                 <td class="right">
-                  <input type="text" size="2" :value="product.qte" />
+                  <input
+                    type="text"
+                    size="2"
+                    :value="product.qte"
+                    @keyup.enter="setQte($event.target.value, product)"
+                  />
                 </td>
                 <td class="center">{{product.value.data.prix}} €</td>
-                <td class="center">{{product.value.data.prix * product.qte}} €</td>
+                <td class="center">{{(product.value.data.prix * product.qte).toFixed(2)}} €</td>
                 <td class="right">
                   <a
                     class="waves-effect waves-black btn red"
@@ -107,6 +112,12 @@ export default {
       if (this.$router.currentRoute.path != "/boutique") {
         this.$router.push("/boutique");
       }
+    },
+    setQte(value, product) {
+      this.$store.commit("setQteProductCart", {
+        newValue: value,
+        productSet: product
+      });
     },
     removeFromCart(product) {
       this.$store.commit("removeFromCart", product);

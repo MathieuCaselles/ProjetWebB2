@@ -13,19 +13,10 @@
             </div>
             <div style="clear: both;">
               <hr />
-              <p>
-                <span class="quantity-title">Quantité:</span>
-                {{product.data.quantite}}
-              </p>
-              <hr />
               <p class="description-title">Description :</p>
             </div>
             <p>{{product.data.dataProduit.description}}</p>
             <div class="card-action">
-              <div class="input-field col s3">
-                <input value id="quantity" type="number" class="validate" min="0" max="10" />
-                <label class="active" for="quantity">Quantité :</label>
-              </div>
               <AddToCart :stockProduct="product" />
             </div>
           </div>
