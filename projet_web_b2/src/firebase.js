@@ -25,6 +25,7 @@ const messagesRef = db.collection("messages");
 const profilesRef = db.collection("profiles");
 const vendeursRef = db.collection("profiles").where("role", "==", "vendeur")
 const profileRef = db.collection("profiles")
+const facturesRef = db.collection("factures")
 
 // date issue fix according to firebase
 const settings = {
@@ -42,5 +43,6 @@ export {
     messagesRef,
     profilesRef,
     vendeursRef,
-    profileRef
+    profileRef,
+    facturesRef
 }
