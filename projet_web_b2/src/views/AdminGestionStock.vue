@@ -9,7 +9,6 @@
 <script>
 import Dropdown from "@/components/Dropdown.vue";
 import AdminCompoGestionStock from "@/components/AdminCompoGestionStock.vue";
-
 export default {
   name: "AdminGestionVendeur",
   components: {

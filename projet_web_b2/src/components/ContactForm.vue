@@ -44,9 +44,7 @@
 
 
 <script>
-
 import { messageRef } from '@/firebase';
-
 export default {
   name: 'Contact',
   data(){
@@ -106,7 +104,6 @@ export default {
     }
     
     
-
 }
 </script>
 <style>

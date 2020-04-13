@@ -110,7 +110,6 @@
 import { productsRef } from "@/firebase";
 import { stockRef } from "@/firebase";
 import { db } from "@/firebase";
-
 export default {
   data() {
     return {
@@ -196,11 +195,9 @@ export default {
 textarea {
   height: 8rem !important;
 }
-
 .card .card-image img {
   height: 200px;
 }
-
 .card .card-content-product {
   height: 10em;
   overflow: auto;

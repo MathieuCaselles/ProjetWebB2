@@ -102,7 +102,6 @@
 
 <script>
 import { db } from "@/firebase";
-
 export default {
   props: {
     vendeur: Object

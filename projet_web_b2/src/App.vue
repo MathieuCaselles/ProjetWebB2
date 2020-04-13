@@ -39,7 +39,6 @@
 <script>
 import Dropdown from "@/components/Dropdown.vue";
 import Footer from "@/components/Footer.vue";
-
 const firebase = require("./firebase.js");
 export default {
   components: {
@@ -62,7 +61,6 @@ export default {
           }
         }
       },
-
       dropDownSelect: "Boutique"
     };
   },
