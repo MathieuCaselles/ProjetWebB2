@@ -8,6 +8,7 @@
             <thead>
                 <th>Mail</th>
                 <th>Role</th>
+                <th>Solde</th>
                 <th>Modifier</th>
             </thead>
             <tbody>
@@ -16,12 +17,14 @@
                     <td v-if="!profile.data.edit">{{ profile.data.role }}</td>
                     <td v-else>
                         <select v-model="profile.role">
-                            <option>utilisateur</option>
-                            <option>vendeur</option>
-                            <option>admin</option>
-                            <option>banni</option>
+                            <option id="utilisateur">utilisateur</option>
+                            <option id="vendeur">vendeur</option>
+                            <option id="admin">admin</option>
+                            <option id="banni">banni</option>
                         </select>
                     </td>
+                    <td v-if="!profile.data.edit">{{ profile.data.balance }}</td>
+                    <td v-else><input class="white" type="number" v-model="profile.balance"></td>
                     <td v-if="!profile.data.edit"><button class="btn waves-effect waves-light cyan" @click="editProfile(profile.id)">edit<i class="material-icons right">save</i></button></td>
                     <td v-else><button class="btn waves-effect waves-light cyan" @click="saveEdit(profile)">save<i class="material-icons right">save</i></button><button class="btn waves-effect waves-light red" @click="cancelEdit(profile.id)">cancel<i class="material-icons right">cancel</i></button></td>
                 </tr>
@@ -45,6 +48,7 @@ export default {
                 content: "",
                 fullDate: "",
                 edit: "",
+                balance:""
             }
         }
     },
@@ -69,7 +73,7 @@ export default {
             .then(() => {
             this.$store.commit("updateProfiles");
             });
-    },
+        },
         cancelEdit(doc) {
         profilesRef
             .doc(doc)
@@ -84,6 +88,7 @@ export default {
                 .doc(key)
                 .update({
                 role: profile.role,
+                balance: profile.balance,
                 edit: false
                 })
                 .then(() => {
