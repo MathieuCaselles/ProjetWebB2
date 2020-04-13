@@ -74,9 +74,13 @@
                 </div>
                 <div class="col s6">
                   <label class="active white-text" for="name">Mail Vendeur :</label>
-                  <select v-model="vendeurInfo">
+                  <select v-model="vendeurInfo" ref="addUser">
                     <option disabled selected>Choisissez le mail du vendeur</option>
-                    <option v-for="(vendeur, index) in vendeurs" v-bind:key="index" v-bind:value="vendeur.id"> {{vendeur.data().mail}}</option>
+                    <option
+                      v-for="(vendeur, index) in vendeurs"
+                      v-bind:key="index"
+                      v-bind:value="vendeur.id"
+                    >{{vendeur.data().mail}}</option>
                   </select>
                 </div>
                 <div class="col s6">
@@ -111,15 +115,15 @@
 import { db, vendeursRef } from "@/firebase";
 export default {
   props: {
-    vendeur: Object,
+    vendeur: Object
   },
-  data(){
-    return{
+  data() {
+    return {
       vendeurs: [],
-      vendeurInfo:{
-        id: "",
+      vendeurInfo: {
+        id: ""
       }
-    }
+    };
   },
   methods: {
     ajouterVendeur() {
@@ -128,7 +132,8 @@ export default {
           nom: this.$refs.addVendeurNom.value,
           adresse: this.$refs.addVendeurAdresse.value,
           horaire: this.$refs.addVendeurHoraire.value,
-          description: this.$refs.addVendeurDescription.value
+          description: this.$refs.addVendeurDescription.value,
+          vendeur: db.doc(`/vendeur/${this.$refs.addUser.value}`)
         })
         .then(() => {
           this.$router.go();
@@ -168,9 +173,9 @@ export default {
           this.vendeurs.push(doc);
         });
       });
-    },
-  }, 
-  created(){
+    }
+  },
+  created() {
     this.readData();
   }
 };
@@ -179,7 +184,7 @@ export default {
 textarea {
   height: 20rem !important;
 }
-select{
+select {
   display: inline;
 }
 </style>

@@ -31,9 +31,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/ListeVendeur.vue'),
-    meta: {
-      requiresAuth: true
-    }
   },
   {
     path: '/produit',
@@ -41,10 +38,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/Product.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    component: () => import('../views/Product.vue')
   },
   {
     path: '/panier',
@@ -52,10 +46,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/Panier.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    component: () => import('../views/Panier.vue')
   },
   {
     path: '/contact',
@@ -71,10 +62,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AdminProduits.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    component: () => import('../views/AdminProduits.vue')
   },
   {
     path: '/admin-stock',
@@ -82,10 +70,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AdminGestionStock.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    component: () => import('../views/AdminGestionStock.vue')
   },
   {
     path: '/admin-vendeur',
@@ -93,11 +78,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AdminGestionVendeur.vue'),
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
+    component: () => import('../views/AdminGestionVendeur.vue')
   },
   {
     path: '/profil',
@@ -105,10 +86,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/Profile.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    component: () => import('../views/Profile.vue')
   },
   {
     path: '/admin-messages',
@@ -116,11 +94,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AdminMessages.vue'),
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
+    component: () => import('../views/AdminMessages.vue')
   },
   {
     path: '/admin-profil',
@@ -128,11 +102,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AdminProfile.vue'),
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
+    component: () => import('../views/AdminProfile.vue')
   },
   {
     path: '/',
@@ -141,18 +111,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/Accueil.vue')
-  },
-  {
-    path: '/admin-factures',
-    name: 'AdminFacture',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AdminFacture.vue'),
-    meta: {
-      requiresAuth: true
-    }
-  },
+  }
 ]
 
 const router = new VueRouter({
@@ -164,24 +123,14 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = firebase.auth().currentUser
-  let profile = []
-  const requiresAdmin = to.matched.some(x => x.meta.requiresAdmin)
-  firebase.firestore().collection("profiles").doc(firebase.auth().currentUser.uid).get()
-  .then(doc => profile.push(doc.data()))
-  .then(() => {
-    let currentRole = profile[0].role
-    if (requiresAuth && !currentUser) {
-      next('/authentification')
-    } else if (requiresAdmin && currentRole != "admin") {
-      next('/')
-    } else {
-      next()
+
+  if (requiresAuth && !currentUser) {
+    next('/authentification')
+  } else if (requiresAuth && currentUser) {
+    next()
+  } else {
+    next()
   }
-  })
-  .catch(function(error) {
-      console.log("Error getting document:", error);
-  });
-  
 })
 
 export default router

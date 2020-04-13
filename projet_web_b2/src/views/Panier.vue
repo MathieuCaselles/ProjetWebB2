@@ -117,6 +117,9 @@ export default {
     },
     argentUser: function() {
       return this.$refs.user.profileList[0].balance;
+    },
+    idVendeur: function() {
+      return this.produitsPanier[0].value.data.idVendeur;
     }
   },
   methods: {
@@ -158,7 +161,7 @@ export default {
           });
         });
         const facture = {
-          vendeur: db.doc(`/vendeur/${this.produitsPanier[0].value.idVendeur}`),
+          vendeur: db.doc(`/vendeur/${this.idVendeur}`),
           user: db.doc(`/profiles/${auth.currentUser.uid}`),
           produits: listeProduits,
           montantTotal: this.montantTotal
