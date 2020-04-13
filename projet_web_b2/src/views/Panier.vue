@@ -11,6 +11,7 @@
                 <th class="right">Quantité</th>
                 <th class="center">Prix Unitaire</th>
                 <th>Total</th>
+                <th>Retirer du panier</th>
               </tr>
             </thead>
 
