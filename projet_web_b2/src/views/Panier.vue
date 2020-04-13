@@ -114,10 +114,18 @@ export default {
       }
     },
     setQte(value, product) {
-      this.$store.commit("setQteProductCart", {
-        newValue: value,
-        productSet: product
-      });
+      console.log(product.value.data.stock);
+      console.log(value);
+      if (!value || value == 0) {
+        this.removeFromCart(product);
+      } else if (product.value.data.stock < parseInt(value)) {
+        alert("Désolé mais nous n'en avons pas assez en stock.");
+      } else {
+        this.$store.commit("setQteProductCart", {
+          newValue: value,
+          productSet: product
+        });
+      }
     },
     removeFromCart(product) {
       this.$store.commit("removeFromCart", product);
