@@ -40,7 +40,7 @@
           <table>
             <thead>
               <tr>
-                <th class="center">Prix Total : {{ montantTotal }}</th>
+                <th class="center">Prix Total : {{ montantTotal }} €</th>
               </tr>
             </thead>
           </table>
@@ -50,7 +50,7 @@
         <h5>Veuillez vérifiez que votre profil soit à jour :</h5>
         <h6>Mettez le à jour si necessaire.</h6>
         <div class="row">
-          <ProfileUser />
+          <ProfileUser ref="user" />
           <div class="center">
             <a
               @click="checkOut"
@@ -89,6 +89,7 @@
 </template>
 <script>
 import ProfileUser from "@/components/ProfileUser.vue";
+import { db, auth } from "@/firebase";
 export default {
   name: "Panier",
   components: {
@@ -112,6 +113,9 @@ export default {
         resultat += product.value.data.prix * product.qte;
       });
       return resultat;
+    },
+    argentUser: function() {
+      return this.$refs.user.profileList[0].balance;
     }
   },
   methods: {
@@ -138,7 +142,37 @@ export default {
       this.$store.commit("removeFromCart", product);
     },
     checkOut() {
-      alert("Faut faire la méthode de paiement");
+      if (parseFloat(this.argentUser) < parseFloat(this.montantTotal)) {
+        alert("Nous sommes désolé mais vous n'avez pas assez d'argent.");
+      } else {
+        let nouveauSolde =
+          parseFloat(this.argentUser) - parseFloat(this.montantTotal);
+        let listeProduits = [];
+        this.produitsPanier.forEach(product => {
+          listeProduits.push({
+            nom: product.value.data.dataProduit.nom,
+            quantite: product.qte,
+            prixUnitaire: product.value.data.prix,
+            total: product.value.data.prix * product.qte
+          });
+        });
+        const facture = {
+          vendeur: db.doc(`/vendeur/${this.produitsPanier[0].value.idVendeur}`),
+          user: db.doc(`/profiles/${auth.currentUser.uid}`),
+          produits: listeProduits,
+          montantTotal: this.montantTotal
+        };
+        db.collection("factures")
+          .add(facture)
+          .then(() => {
+            alert("Merci, votre commande a bien été passé");
+          })
+          .then(() => {
+            db.collection("profiles")
+              .doc(auth.currentUser.uid)
+              .update({ balance: nouveauSolde });
+          });
+      }
     }
   }
 };
