@@ -81,7 +81,7 @@ export default {
         .then(user => {
           this.$store.commit("setCurrentUser", user);
           db.collection("profiles").doc(user.user.uid).set({
-            role:"user",
+            role:"utilisateur",
             mail: this.email_register,
         })
         .then(function() {

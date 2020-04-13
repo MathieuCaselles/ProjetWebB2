@@ -16,9 +16,10 @@
                     <td v-if="!profile.data.edit">{{ profile.data.role }}</td>
                     <td v-else>
                         <select v-model="profile.role">
-                            <option>user</option>
+                            <option>utilisateur</option>
                             <option>vendeur</option>
                             <option>admin</option>
+                            <option>banni</option>
                         </select>
                     </td>
                     <td v-if="!profile.data.edit"><button class="btn waves-effect waves-light cyan" @click="editProfile(profile.id)">edit<i class="material-icons right">save</i></button></td>
