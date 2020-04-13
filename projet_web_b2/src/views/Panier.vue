@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="header">Panier de réservation de : NOM VENDEUR.</h5>
+    <h5 class="header">Panier :</h5>
     <section class="section">
       <div class="row">
         <div class="col s12 l10 xl8 offset-l1 offset-xl2">
@@ -27,7 +27,7 @@
                   />
                 </td>
                 <td class="center">{{product.value.data.prix}} €</td>
-                <td class="center">{{(product.value.data.prix * product.qte).toFixed(2)}} €</td>
+                <td ref class="center">{{(product.value.data.prix * product.qte).toFixed(2)}} €</td>
                 <td class="right">
                   <a
                     class="waves-effect waves-black btn red"
@@ -40,7 +40,7 @@
           <table>
             <thead>
               <tr>
-                <th class="center">Prix Total : Montant global</th>
+                <th class="center">Prix Total : {{ montantTotal }}</th>
               </tr>
             </thead>
           </table>
@@ -105,6 +105,13 @@ export default {
     },
     estVide: function() {
       return this.produitsPanier.length < 1;
+    },
+    montantTotal: function() {
+      let resultat = 0;
+      this.produitsPanier.forEach(product => {
+        resultat += product.value.data.prix * product.qte;
+      });
+      return resultat;
     }
   },
   methods: {
