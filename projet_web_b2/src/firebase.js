@@ -23,6 +23,8 @@ const messageRef = db.collection("messages")
 const stockRef = db.collection("stock");
 const messagesRef = db.collection("messages");
 const profilesRef = db.collection("profiles");
+const vendeursRef = db.collection("profiles").where("role", "==", "vendeur")
+const profileRef = db.collection("profiles")
 
 // date issue fix according to firebase
 const settings = {
@@ -38,5 +40,7 @@ export {
     messageRef,
     stockRef,
     messagesRef,
-    profilesRef
+    profilesRef,
+    vendeursRef,
+    profileRef
 }

@@ -72,7 +72,14 @@
                   <label class="active white-text" for="name">Adresse :</label>
                   <input class="white-text" type="text" ref="addVendeurAdresse" />
                 </div>
-                <div class="col s12">
+                <div class="col s6">
+                  <label class="active white-text" for="name">Mail Vendeur :</label>
+                  <select v-model="vendeurInfo">
+                    <option disabled selected>Choisissez le mail du vendeur</option>
+                    <option v-for="(vendeur, index) in vendeurs" v-bind:key="index" v-bind:value="vendeur.id"> {{vendeur.data().mail}}</option>
+                  </select>
+                </div>
+                <div class="col s6">
                   <label class="active white-text" for="name">Horaires :</label>
                   <input class="white-text" type="text" ref="addVendeurHoraire" />
                 </div>
@@ -101,10 +108,18 @@
 </template>
 
 <script>
-import { db } from "@/firebase";
+import { db, vendeursRef } from "@/firebase";
 export default {
   props: {
-    vendeur: Object
+    vendeur: Object,
+  },
+  data(){
+    return{
+      vendeurs: [],
+      vendeurInfo:{
+        id: "",
+      }
+    }
   },
   methods: {
     ajouterVendeur() {
@@ -145,12 +160,26 @@ export default {
             console.error("Error removing document: ", error);
           });
       }
-    }
+    },
+    readData() {
+      this.vendeurs = [];
+      vendeursRef.get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.vendeurs.push(doc);
+        });
+      });
+    },
+  }, 
+  created(){
+    this.readData();
   }
 };
 </script>
 <style>
 textarea {
   height: 20rem !important;
+}
+select{
+  display: inline;
 }
 </style>

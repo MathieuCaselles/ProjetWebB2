@@ -19,6 +19,12 @@
               <i class="material-icons right">phone</i>
             </router-link>
           </li>
+          <li v-if="getUserStore">
+            <router-link class="waves-effect waves-light btn green" to="/profil">
+              Profil
+              <i class="material-icons right">account_circle</i>
+            </router-link>
+          </li>
           <li v-if="!getUserStore">
             <router-link class="waves-effect waves-light btn green" to="/authentification">
               S'authentifier

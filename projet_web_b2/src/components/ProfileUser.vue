@@ -1,16 +1,10 @@
 <template>
     <div class="row center-align">
-        <div class="col s6 offset-s3">
+        <div class="col s6">
             <div class="card green">
                 <div class="card-content white-text">
                     <span class="card-title">Votre profil :</span>
                     <div class="row">
-                        <p v-if="errors.length">
-                            <b>Merci de corriger les erreurs suivante(s):</b>
-                            <ul>
-                                <li v-for="(error,index) in errors" v-bind:key='index' class="red-text">{{ error }}</li>
-                            </ul>
-                        </p>
                         <form class="col s12">
                         <div class="row">
                             <div class="input-field col s6 white-text">
@@ -51,6 +45,52 @@
                 </div>
             </div>
         </div>
+        <div class="col s6">
+            <div class="card green">
+                <div class="card-content white-text">
+                    <span class="card-title">Votre profil :</span>
+                    <div class="row">
+                        <form class="col s12" v-for="(profile, index) in profileList" v-bind:key="index">
+                        <div class="row">
+                            <div class="col s6 white-text">
+                                <p class="white-text" for="name">Nom :</p>
+                                <p v-if="profile.lastName">{{ profile.lastName }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col s6">
+                                <p class="white-text" for="name">Prénom :</p>
+                                <p v-if="profile.firstName">{{ profile.firstName }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="card-title">Adresse complète:</p>
+                            <div class="col s6 white-text">
+                                <p class="white-text" for="name">Adresse :</p>
+                                <p v-if="profile.fullAddress.address">{{ profile.fullAddress.address }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col s6">
+                                <p class="white-text" for="name">Code Postal :</p>
+                                <p v-if="profile.fullAddress.postalCode">{{ profile.fullAddress.postalCode }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col s6">
+                                <p class="white-text" for="name">Ville :</p>
+                                <p v-if="profile.fullAddress.city">{{ profile.fullAddress.city }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col s6">
+                                <p class="white-text" for="name">Pays :</p>
+                                <p v-if="profile.fullAddress.country">{{ profile.fullAddress.country }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -78,9 +118,21 @@ export default {
     methods:{
         updateProfile(){
             db.collection("profiles").doc(auth.currentUser.uid).update(this.profile);
+            this.readData()
             alert('Profil bien mis à jour !')
         },
+        readData() {
+            this.profileList = [];
+            db.collection("profiles").doc(auth.currentUser.uid).get()
+            .then(doc => this.profileList.push(doc.data()))
+            .catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        },
     },
+    created(){
+        this.readData()
+    }
 }
 </script>
 
