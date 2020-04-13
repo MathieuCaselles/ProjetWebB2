@@ -144,14 +144,18 @@ export default {
       });
     },
     addProductToVendeur(produitId, index) {
-      stockRef.add({
-        vendeur: db.doc(`/vendeur/${this.vendeur.id}`),
-        produit: db.doc(`/produits/${produitId}`),
-        quantite: this.$refs.productsQuantite[index].value,
-        nbrStock: this.$refs.productsStock[index].value,
-        prix: this.$refs.productsPrix[index].value
-      });
-      this.$store.commit("updateStockVendeur", this.vendeur.id);
+      stockRef
+        .add({
+          vendeur: db.doc(`/vendeur/${this.vendeur.id}`),
+          produit: db.doc(`/produits/${produitId}`),
+          quantite: this.$refs.productsQuantite[index].value,
+          nbrStock: this.$refs.productsStock[index].value,
+          prix: this.$refs.productsPrix[index].value
+        })
+        .then(() => {
+          console.log("Document successfully deleted!");
+          this.$store.commit("updateStockVendeur", this.vendeur.id);
+        });
     },
     updateProductVendeur(stockId, index) {
       db.collection("stock")
@@ -160,22 +164,25 @@ export default {
           quantite: this.$refs.vendeurQuantite[index].value,
           nbrStock: this.$refs.vendeurStock[index].value,
           prix: this.$refs.vendeurPrix[index].value
+        })
+        .then(() => {
+          console.log("Document successfully deleted!");
+          this.$store.commit("updateStockVendeur", this.vendeur.id);
         });
-      this.$store.commit("updateStockVendeur", this.vendeur.id);
     },
     deleteProduct(stockId) {
       if (confirm("Voulez-vous vraiment supprimer ce produit ?")) {
         db.collection("stock")
           .doc(stockId)
           .delete()
-          .then(function() {
+          .then(() => {
             console.log("Document successfully deleted!");
+            this.$store.commit("updateStockVendeur", this.vendeur.id);
           })
           .catch(function(error) {
             console.error("Error removing document: ", error);
           });
       }
-      this.$store.commit("updateStockVendeur", this.vendeur.id);
     }
   }
 };
