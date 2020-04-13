@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="section green lighten-4" style="max-height: 37.2em; overflow: auto;">
+    <section class="section" style="max-height: 37.2em; overflow: auto;">
       <div class="row">
         <div class="col s12 l10 xl8 offset-l1 offset-xl2">
           <table class="responsive-table highlight">
@@ -17,9 +17,9 @@
                 <td>{{vendeur.data.adresse}}</td>
                 <td>
                   <a
-                    @click="goToShop(vendeur.id)"
+                    @click="goToShop(vendeur)"
                     class="waves-effect waves-light btn light-blue lighten-2"
-                  >En savoir plus</a>
+                  >Boutique</a>
                 </td>
                 <td>
                   <a
@@ -49,8 +49,9 @@ export default {
     }
   },
   methods: {
-    goToShop(idVendeur) {
-      this.$store.commit("updateStockVendeur", idVendeur);
+    goToShop(vendeur) {
+      this.$store.commit("updateStockVendeur", vendeur.id);
+      this.$store.commit("setVendeurSelect", vendeur);
       this.$store.commit("setIndexPagination", 0);
       if (this.$router.currentRoute.path != "/boutique") {
         this.$router.push("/boutique");

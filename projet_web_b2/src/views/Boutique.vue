@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <infoVendeur />
     <div class="row">
       <Product
         v-for="(product, index) in listeProduits"
@@ -27,11 +28,13 @@
 
 <script>
 import Product from "@/components/Product.vue";
+import infoVendeur from "@/components/infoVendeur.vue";
 
 export default {
   name: "Boutique",
   components: {
-    Product
+    Product,
+    infoVendeur
   },
   data() {
     return {

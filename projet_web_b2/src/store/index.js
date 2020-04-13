@@ -11,6 +11,7 @@ const vuexLocalStorage = new VuexPersist({
     currentUser: state.currentUser,
     productDetail: state.productDetail,
     indexPagination: state.indexPagination,
+    vendeurSelect: state.vendeurSelect
   })
 })
 
@@ -30,7 +31,7 @@ const store = new Vuex.Store({
       state.currentUser = val;
     },
     setVendeurSelect(state, val) {
-      state.vendeurSelects = val;
+      state.vendeurSelect = val;
     },
     setProductDetail(state, val) {
       state.productDetail = val;

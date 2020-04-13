@@ -86,6 +86,7 @@ export default {
     goToShop() {
       this.$store.commit("updateStockVendeur", 1);
       this.$store.commit("setIndexPagination", 0);
+      this.$store.commit("setVendeurSelect", null);
       if (this.$router.currentRoute.path != "/boutique") {
         this.$router.push("/boutique");
       }
