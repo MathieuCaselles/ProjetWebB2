@@ -23,6 +23,7 @@ const store = new Vuex.Store({
     listeVendeurs: null,
     stocksVendeur: null,
     vendeurSelect: { data: { nom: "Choix du vendeur" } },
+    profiles: null
   },
   mutations: {
     setCurrentUser(state, val) {
@@ -43,6 +44,7 @@ const store = new Vuex.Store({
         querySnapshot.forEach((doc) => {
           listeProduits.push({ id: doc.id, data: doc.data() })
         });
+      }).then(() => {
         state.produits = listeProduits;
       });
     },
@@ -52,6 +54,7 @@ const store = new Vuex.Store({
         querySnapshot.forEach((doc) => {
           listeProfiles.push({ id: doc.id, data: doc.data() })
         });
+      }).then(() => {
         state.profiles = listeProfiles;
       });
     },
@@ -61,6 +64,7 @@ const store = new Vuex.Store({
         querySnapshot.forEach((doc) => {
           listeVendeurs[doc.id] = { id: doc.id, data: doc.data() };
         });
+      }).then(() => {
         state.listeVendeurs = listeVendeurs;
       });
     },
