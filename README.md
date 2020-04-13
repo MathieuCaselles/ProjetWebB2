@@ -35,6 +35,16 @@ L'administration se composera obligatoirement des pages suivantes :
 * page de connexion
 * page de contact
   
+### Technologie utilisées
+
+Dans notre soif à la découverte de nouvelles technologies, nous avons décidé d'utiliser des technologies que nous n'avions encore jamais vu :
+* VueJS
+* Firebase
+* NoSQL
+
+Mais aussi des technologies que nous connaissions déjà un peu:
+* Materialize (Framework CSS)
+* NodeJS (Gestion de packages)
 
 ### Fonctionnalités  
 
@@ -53,16 +63,13 @@ L'administration se composera obligatoirement des pages suivantes :
         * une adresse email
         * adresse de livraison
         * un solde (factice)
-    * fonction de mot de passe oublié
 * la page produit contient : / difficulté : 7
     * l'image du produit
     * le nom du produit
     * le prix du produit
     * la description du produit
-    * un bouton d’achat / réservation (pour revendeurs)
+    * un bouton d’achat (pour revendeurs)
 * Tunnel d'achat
-* un email automatique est envoyé à l’acheteur après la vente/réservation avec : / difficulté : 5
-    * la facture en PDF
 
 #### Partie administrateur
 * un espace administrateur est mis en place avec une authentification / difficulté : 3
