@@ -107,3 +107,9 @@ Mais aussi des technologies que nous connaissions déjà un peu:
     * nombre de nouvelles réservations sur les 7 derniers jours
     * Détail des réservations
     * Ajouter leurs produits
+## instllation
+
+Clone ce repo puis se rendre dans le dossier projet-dev-web.  
+Il manque plus qu'a faire un `npm install` pour installer les dépendences puis un `npm run serve` pour lancer le serveur en local sur le port 8080.
+
+Le site est aussi déployé sur ce lien : https://apprendrefirebase-c0e3f.firebaseapp.com/
